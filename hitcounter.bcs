@@ -1,6 +1,7 @@
 /*
-Simple cut message hit counter by Jkk.
-I dont know what I'm doing so I did it this way.
+Simple slash type message hit counter by Jkk.
+I may extend it to cover other hit types also
+Tell me if something is horribly wrong... 
 */
 
 
@@ -155,6 +156,7 @@ void bootup(){
 	 "$"+SCRIPT_NAME+".addHit cruellyDismember");
 }
 
+//
 void addHit(){
 	switch(argument){
 		
@@ -263,12 +265,15 @@ void addHit(){
 			break;
 			
 		default:
+			//Lets hope we never get here
 			clientGUI.printText("general","ERROR in the hit counter code, check that arguments and case names match");
 		
 	}//switch ends
 }
 
+//This reports the hits to general window
 void reportCuts(){
+	//if no cuts, no report (if we try to report, we divide by zero)
 	if(countCuts()>0){
 		clientGUI.printText("general",""+barelyGrazeCounter+" ("+(barelyGrazeCounter*100/countCuts())+"%) barely grazes\n");
 		clientGUI.printText("general",""+solidlySlashCounter+" ("+(solidlySlashCounter*100/countCuts())+"%) solidly slashes\n");
@@ -303,7 +308,7 @@ void reportCuts(){
 
 }
 
-
+//A helper function that sums all the hits
 int countCuts(){
 	return (barelyGrazeCounter+solidlySlashCounter+gashCounter+lCutCounter+cutCounter+tearCounter+inciseCounter+shredCounter+hShredCounter+slashCounter+iCutCounter+iTearCounter+slitCounter+cTatterCounter+sShaveCounter+riveCounter+cSlashCounter+uSlashCounter+qCutCounter+savagelyRipCounter+brutallyTearCounter+savagelyShredCounter+cruellyRendCounter+barbaricallyRendCounter+dismemberCounter+cruellyDismemberCounter);
 }
