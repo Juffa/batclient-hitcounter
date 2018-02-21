@@ -1,19 +1,13 @@
 # batclient-hitcounter
-A hit message counter for batclient. 
-Counts and reports your slash attacks.
+A hit message counter for batclient.<br>
+Counts and reports your slash attacks.<br>
 
-Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client. 
+Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
+View your hits with $hits<br>
+Reset your hits with $hits reset<br>
+Reset the hit counter with /scriptreload and /scriptbootup or restart the client.<br>
 
-View your hits with $hits
-
-Reset your hits with $hits reset
-
-Reset the hit counter with /scriptreload and /scriptbootup or restart the client.
-
-(Also my first actual project in github so I use this as a learning experience. Tell me if I'm doing something stupid)
-
-$hits output looks like this:
-
+$hits output looks like this:<br>
 0 (0%) barely grazes<br>
 0 (0%) solidly slashes<br>
 0 (0%) gashes<br>
