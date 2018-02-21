@@ -44,7 +44,17 @@ int cruellyDismemberCounter=0;
 
 // run() happens when you type $hits in the client.
 run(){
-	reportCuts();
+	if(argument !=null){
+		switch(argument){
+			case "reset":
+				resetHits();
+				clientGUI.printText("general","OK. Resetting hit counters.\n");
+				break;
+			//can add more later
+		}
+	}else{
+		reportHits();
+	}
 }
 
 //the triggers
@@ -272,35 +282,35 @@ void addHit(){
 }
 
 //This reports the hits to general window
-void reportCuts(){
+void reportHits(){
 	//if no hits, no report (if we try to report, we divide by zero)
-	if(countCuts()>0){
-		clientGUI.printText("general",""+barelyGrazeCounter+" ("+(barelyGrazeCounter*100/countCuts())+"%) barely grazes\n");
-		clientGUI.printText("general",""+solidlySlashCounter+" ("+(solidlySlashCounter*100/countCuts())+"%) solidly slashes\n");
-		clientGUI.printText("general",""+gashCounter+" ("+(gashCounter*100/countCuts())+"%) gashes\n");
-		clientGUI.printText("general",""+lCutCounter+" ("+(lCutCounter*100/countCuts())+"%) lightly cuts\n");
-		clientGUI.printText("general",""+cutCounter+" ("+(cutCounter*100/countCuts())+"%) cuts\n");
-		clientGUI.printText("general",""+tearCounter+" ("+(tearCounter*100/countCuts())+"%) tears\n");
-		clientGUI.printText("general",""+inciseCounter+" ("+(inciseCounter*100/countCuts())+"%) incises\n");
-		clientGUI.printText("general",""+shredCounter+" ("+(shredCounter*100/countCuts())+"%) shreds\n");
-		clientGUI.printText("general",""+hShredCounter+" ("+(hShredCounter*100/countCuts())+"%) horribly shreds\n");
-		clientGUI.printText("general",""+slashCounter+" ("+(slashCounter*100/countCuts())+"%) slashes\n");
-		clientGUI.printText("general",""+iCutCounter+" ("+(iCutCounter*100/countCuts())+"%) incisively cuts\n");
-		clientGUI.printText("general",""+iTearCounter+" ("+(iTearCounter*100/countCuts())+"%) incisively tears\n");
-		clientGUI.printText("general",""+slitCounter+" ("+(slitCounter*100/countCuts())+"%) slits\n");
-		clientGUI.printText("general",""+cTatterCounter+" ("+(cTatterCounter*100/countCuts())+"%) cruelly tatters\n");
-		clientGUI.printText("general",""+sShaveCounter+" ("+(sShaveCounter*100/countCuts())+"%) savagely shaves\n");
-		clientGUI.printText("general",""+riveCounter+" ("+(riveCounter*100/countCuts())+"%) rives\n");
-		clientGUI.printText("general",""+cSlashCounter+" ("+(cSlashCounter*100/countCuts())+"%) cruelly slashes\n");
-		clientGUI.printText("general",""+uSlashCounter+" ("+(uSlashCounter*100/countCuts())+"%) uncontrollably slashes\n");
-		clientGUI.printText("general",""+qCutCounter+" ("+(qCutCounter*100/countCuts())+"%) quickly cuts\n");
-		clientGUI.printText("general",""+savagelyRipCounter+" ("+(savagelyRipCounter*100/countCuts())+"%) savagely rips\n");
-		clientGUI.printText("general",""+brutallyTearCounter+" ("+(brutallyTearCounter*100/countCuts())+"%) BRUTALLY TEARS\n");
-		clientGUI.printText("general",""+savagelyShredCounter+" ("+(savagelyShredCounter*100/countCuts())+"%) SAVAGELY SHREDS\n");
-		clientGUI.printText("general",""+cruellyRendCounter+" ("+(cruellyRendCounter*100/countCuts())+"%) CRUELLY RENDS\n");
-		clientGUI.printText("general",""+barbaricallyRendCounter+" ("+(barbaricallyRendCounter*100/countCuts())+"%) BARBARICALLY RENDS\n");
-		clientGUI.printText("general",""+dismemberCounter+" ("+(dismemberCounter*100/countCuts())+"%) DISMEMBERS\n");
-		clientGUI.printText("general",""+cruellyDismemberCounter+" ("+(cruellyDismemberCounter*100/countCuts())+"%) CRUELLY DISMEMBERS\n");
+	if(countHits()>0){
+		clientGUI.printText("general",""+barelyGrazeCounter+" ("+(barelyGrazeCounter*100/countHits())+"%) barely grazes\n");
+		clientGUI.printText("general",""+solidlySlashCounter+" ("+(solidlySlashCounter*100/countHits())+"%) solidly slashes\n");
+		clientGUI.printText("general",""+gashCounter+" ("+(gashCounter*100/countHits())+"%) gashes\n");
+		clientGUI.printText("general",""+lCutCounter+" ("+(lCutCounter*100/countHits())+"%) lightly cuts\n");
+		clientGUI.printText("general",""+cutCounter+" ("+(cutCounter*100/countHits())+"%) cuts\n");
+		clientGUI.printText("general",""+tearCounter+" ("+(tearCounter*100/countHits())+"%) tears\n");
+		clientGUI.printText("general",""+inciseCounter+" ("+(inciseCounter*100/countHits())+"%) incises\n");
+		clientGUI.printText("general",""+shredCounter+" ("+(shredCounter*100/countHits())+"%) shreds\n");
+		clientGUI.printText("general",""+hShredCounter+" ("+(hShredCounter*100/countHits())+"%) horribly shreds\n");
+		clientGUI.printText("general",""+slashCounter+" ("+(slashCounter*100/countHits())+"%) slashes\n");
+		clientGUI.printText("general",""+iCutCounter+" ("+(iCutCounter*100/countHits())+"%) incisively cuts\n");
+		clientGUI.printText("general",""+iTearCounter+" ("+(iTearCounter*100/countHits())+"%) incisively tears\n");
+		clientGUI.printText("general",""+slitCounter+" ("+(slitCounter*100/countHits())+"%) slits\n");
+		clientGUI.printText("general",""+cTatterCounter+" ("+(cTatterCounter*100/countHits())+"%) cruelly tatters\n");
+		clientGUI.printText("general",""+sShaveCounter+" ("+(sShaveCounter*100/countHits())+"%) savagely shaves\n");
+		clientGUI.printText("general",""+riveCounter+" ("+(riveCounter*100/countHits())+"%) rives\n");
+		clientGUI.printText("general",""+cSlashCounter+" ("+(cSlashCounter*100/countHits())+"%) cruelly slashes\n");
+		clientGUI.printText("general",""+uSlashCounter+" ("+(uSlashCounter*100/countHits())+"%) uncontrollably slashes\n");
+		clientGUI.printText("general",""+qCutCounter+" ("+(qCutCounter*100/countHits())+"%) quickly cuts\n");
+		clientGUI.printText("general",""+savagelyRipCounter+" ("+(savagelyRipCounter*100/countHits())+"%) savagely rips\n");
+		clientGUI.printText("general",""+brutallyTearCounter+" ("+(brutallyTearCounter*100/countHits())+"%) BRUTALLY TEARS\n");
+		clientGUI.printText("general",""+savagelyShredCounter+" ("+(savagelyShredCounter*100/countHits())+"%) SAVAGELY SHREDS\n");
+		clientGUI.printText("general",""+cruellyRendCounter+" ("+(cruellyRendCounter*100/countHits())+"%) CRUELLY RENDS\n");
+		clientGUI.printText("general",""+barbaricallyRendCounter+" ("+(barbaricallyRendCounter*100/countHits())+"%) BARBARICALLY RENDS\n");
+		clientGUI.printText("general",""+dismemberCounter+" ("+(dismemberCounter*100/countHits())+"%) DISMEMBERS\n");
+		clientGUI.printText("general",""+cruellyDismemberCounter+" ("+(cruellyDismemberCounter*100/countHits())+"%) CRUELLY DISMEMBERS\n");
 	}
 	else{
 		clientGUI.printText("general","No registered hits yet\n");
@@ -308,7 +318,36 @@ void reportCuts(){
 
 }
 
+void resetHits(){
+	barelyGrazeCounter=0;
+	solidlySlashCounter=0;
+	gashCounter=0;
+	lCutCounter=0;
+	cutCounter=0;
+	tearCounter=0;
+	inciseCounter=0;
+	shredCounter=0;
+	hShredCounter=0;
+	slashCounter=0;
+	iCutCounter=0;
+	iTearCounter=0;
+	slitCounter=0;
+	cTatterCounter=0;
+	sShaveCounter=0;
+	riveCounter=0;
+	cSlashCounter=0;
+	uSlashCounter=0;
+	qCutCounter=0;
+	savagelyRipCounter=0;
+	brutallyTearCounter=0;
+	savagelyShredCounter=0;
+	cruellyRendCounter=0;
+	barbaricallyRendCounter=0;
+	dismemberCounter=0;
+	cruellyDismemberCounter=0;		
+}
+
 //A helper function that sums all the hits
-int countCuts(){
+int countHits(){
 	return (barelyGrazeCounter+solidlySlashCounter+gashCounter+lCutCounter+cutCounter+tearCounter+inciseCounter+shredCounter+hShredCounter+slashCounter+iCutCounter+iTearCounter+slitCounter+cTatterCounter+sShaveCounter+riveCounter+cSlashCounter+uSlashCounter+qCutCounter+savagelyRipCounter+brutallyTearCounter+savagelyShredCounter+cruellyRendCounter+barbaricallyRendCounter+dismemberCounter+cruellyDismemberCounter);
 }

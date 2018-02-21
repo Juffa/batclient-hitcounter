@@ -4,7 +4,9 @@ Counts and reports your slash attacks.
 
 Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client. 
 
-View your hits with $hits 
+View your hits with $hits
+
+Reset your hits with $hits reset
 
 Reset the hit counter with /scriptreload and /scriptbootup or restart the client.
 
