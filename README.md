@@ -17,16 +17,16 @@ $hits output looks like this:
 0 (0%) barely grazes<br>
 0 (0%) solidly slashes<br>
 0 (0%) gashes<br>
-0 (0%) lightly cuts<br>
-3 (100%) cuts<br>
-0 (0%) tears<br>
+7 (16%) lightly cuts<br>
+32 (74%) cuts<br>
+3 (6%) tears<br>
 0 (0%) incises<br>
 0 (0%) shreds<br>
 0 (0%) horribly shreds<br>
 0 (0%) slashes<br>
 0 (0%) incisively cuts<br>
 0 (0%) incisively tears<br>
-0 (0%) slits<br>
+1 (2%) slits<br>
 0 (0%) cruelly tatters<br>
 0 (0%) savagely shaves<br>
 0 (0%) rives<br>
