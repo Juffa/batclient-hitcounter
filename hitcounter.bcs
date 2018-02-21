@@ -273,7 +273,7 @@ void addHit(){
 
 //This reports the hits to general window
 void reportCuts(){
-	//if no cuts, no report (if we try to report, we divide by zero)
+	//if no hits, no report (if we try to report, we divide by zero)
 	if(countCuts()>0){
 		clientGUI.printText("general",""+barelyGrazeCounter+" ("+(barelyGrazeCounter*100/countCuts())+"%) barely grazes\n");
 		clientGUI.printText("general",""+solidlySlashCounter+" ("+(solidlySlashCounter*100/countCuts())+"%) solidly slashes\n");
