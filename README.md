@@ -14,29 +14,29 @@ Reset the hit counter with /scriptreload and /scriptbootup or restart the client
 
 $hits output looks like this:
 
-0 (0%) barely grazes
-0 (0%) solidly slashes
-0 (0%) gashes
-0 (0%) lightly cuts
-3 (100%) cuts
-0 (0%) tears
-0 (0%) incises
-0 (0%) shreds
-0 (0%) horribly shreds
-0 (0%) slashes
-0 (0%) incisively cuts
-0 (0%) incisively tears
-0 (0%) slits
-0 (0%) cruelly tatters
-0 (0%) savagely shaves
-0 (0%) rives
-0 (0%) cruelly slashes
-0 (0%) uncontrollably slashes
-0 (0%) quickly cuts
-0 (0%) savagely rips
-0 (0%) BRUTALLY TEARS
-0 (0%) SAVAGELY SHREDS
-0 (0%) CRUELLY RENDS
-0 (0%) BARBARICALLY RENDS
-0 (0%) DISMEMBERS
-0 (0%) CRUELLY DISMEMBERS
+0 (0%) barely grazes<br>
+0 (0%) solidly slashes<br>
+0 (0%) gashes<br>
+0 (0%) lightly cuts<br>
+3 (100%) cuts<br>
+0 (0%) tears<br>
+0 (0%) incises<br>
+0 (0%) shreds<br>
+0 (0%) horribly shreds<br>
+0 (0%) slashes<br>
+0 (0%) incisively cuts<br>
+0 (0%) incisively tears<br>
+0 (0%) slits<br>
+0 (0%) cruelly tatters<br>
+0 (0%) savagely shaves<br>
+0 (0%) rives<br>
+0 (0%) cruelly slashes<br>
+0 (0%) uncontrollably slashes<br>
+0 (0%) quickly cuts<br>
+0 (0%) savagely rips<br>
+0 (0%) BRUTALLY TEARS<br>
+0 (0%) SAVAGELY SHREDS<br>
+0 (0%) CRUELLY RENDS<br>
+0 (0%) BARBARICALLY RENDS<br>
+0 (0%) DISMEMBERS<br>
+0 (0%) CRUELLY DISMEMBERS<br>
