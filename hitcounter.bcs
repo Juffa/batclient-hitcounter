@@ -32,7 +32,6 @@ run(){
 	}
 }
 
-//the triggers
 void bootup(){
 	triggers();
 }
