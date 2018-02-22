@@ -8,29 +8,29 @@ Reset your hits with $hits reset<br>
 Reset the hit counter with /scriptreload and /scriptbootup or restart the client.<br>
 
 $hits output looks like this:<br>
-0 (0%) barely grazes<br>
-0 (0%) solidly slashes<br>
-0 (0%) gashes<br>
-7 (16%) lightly cuts<br>
-32 (74%) cuts<br>
-3 (6%) tears<br>
-0 (0%) incises<br>
-0 (0%) shreds<br>
-0 (0%) horribly shreds<br>
-0 (0%) slashes<br>
-0 (0%) incisively cuts<br>
-0 (0%) incisively tears<br>
-1 (2%) slits<br>
-0 (0%) cruelly tatters<br>
-0 (0%) savagely shaves<br>
-0 (0%) rives<br>
-0 (0%) cruelly slashes<br>
-0 (0%) uncontrollably slashes<br>
-0 (0%) quickly cuts<br>
-0 (0%) savagely rips<br>
-0 (0%) BRUTALLY TEARS<br>
-0 (0%) SAVAGELY SHREDS<br>
-0 (0%) CRUELLY RENDS<br>
-0 (0%) BARBARICALLY RENDS<br>
-0 (0%) DISMEMBERS<br>
-0 (0%) CRUELLY DISMEMBERS<br>
+0 (0%) barely graze<br>
+0 (0%) solidly slash<br>
+0 (0%) gash<br>
+0 (0%) lightly cut<br>
+27 (72%) cut<br>
+8 (21%) tear<br>
+0 (0%) incise<br>
+1 (2%) shred<br>
+0 (0%) horribly shred<br>
+0 (0%) slash<br>
+0 (0%) incisively cut<br>
+0 (0%) incisively tear<br>
+0 (0%) slit<br>
+1 (2%) cruelly tatter<br>
+0 (0%) savagely shave<br>
+0 (0%) rive<br>
+0 (0%) cruelly slash<br>
+0 (0%) uncontrollably slash<br>
+0 (0%) quickly cut<br>
+0 (0%) savagely rip<br>
+0 (0%) BRUTALLY TEAR<br>
+0 (0%) SAVAGELY SHRED<br>
+0 (0%) CRUELLY REND<br>
+0 (0%) BARBARICALLY REND<br>
+0 (0%) DISMEMBER<br>
+0 (0%) CRUELLY DISMEMBER<br>
