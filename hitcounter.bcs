@@ -4,43 +4,16 @@ I may extend it to cover other hit types also
 Tell me if something is horribly wrong... 
 */
 
-
 SCRIPT_NAME="hits";
 SCRIPT_DESC = "collects hit messages";
 SCRIPT_OFF = false;
 
 
-// Slash message counters
-
-int barelyGrazeCounter=0;
-int solidlySlashCounter=0;
-int gashCounter=0;
-int lCutCounter=0;
-int cutCounter=0;
-int tearCounter=0;
-int inciseCounter=0;
-int shredCounter=0;
-int hShredCounter=0;
-int slashCounter=0;
-int iCutCounter=0;
-int iTearCounter=0;
-int slitCounter=0;
-int cTatterCounter=0;
-int sShaveCounter=0;
-int riveCounter=0;
-int cSlashCounter=0;
-int uSlashCounter=0;
-int qCutCounter=0;
-int savagelyRipCounter=0;
-int brutallyTearCounter=0;
-int savagelyShredCounter=0;
-int cruellyRendCounter=0;
-int barbaricallyRendCounter=0;
-int dismemberCounter=0;
-int cruellyDismemberCounter=0;
-
+//Slash message counter array
+slashes = new int [26];
+//Slash messages stored in an array for reporting purposes
+String[] slashMessages={"barely graze","solidly slash","gash","lightly cut","cut","tear","incise","shred","horribly shred","slash","incisively cut","incisively tear","slit","cruelly tatter","savagely shave","rive","cruelly slash","uncontrollably slash","quickly cut","savagely rip","BRUTALLY TEAR","SAVAGELY SHRED","CRUELLY REND","BARBARICALLY REND","DISMEMBER","CRUELLY DISMEMBER"};
 //Add more hit type counters later?
-
 
 // run() happens when you type $hits in the client.
 run(){
@@ -59,7 +32,158 @@ run(){
 
 //the triggers
 void bootup(){
+	triggers();
+}
 
+
+//This reports the hits to general window
+void reportHits(){
+	//if no hits, no report (if we try to report, we divide by zero)
+	if(countHits(slashes)>0){
+		for(int i=0;i<slashes.length;i++){
+			clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+		}
+	}
+	else{
+		clientGUI.printText("general","No registered hits yet\n");
+	}
+
+}
+
+//A module that resets the hits (slashes for now).
+void resetHits(){
+	for(int i=0;i<slashes.length;i++){
+		slashes[i]=0;	
+	}
+}
+
+//A helper module that sums all the hits
+int countHits(int[] hitit){
+	int total=0;
+	for(int i=0;i<hitit.length;i++){
+		total+=hitit[i];
+	}
+	return(total);
+}
+
+//I couldn't figure out how to directly add the values from the triggers so I made a separate module
+void addHit(){
+	switch(argument){
+		
+		case "barelyGraze":
+			slashes[0]++;
+			break;
+
+		case "solidlySlash":
+			slashes[1]++;
+			break;
+
+		case "gash":
+			slashes[2]++;
+			break;
+
+		case "lCut":
+			slashes[3]++;
+			break;
+
+		case "cut":
+			slashes[4]++;
+			
+			break;
+
+		case "tear":
+			slashes[5]++;
+			break;
+
+		case "incise":
+			slashes[6]++;
+			break;
+
+		case "shred":
+			slashes[7]++;
+			break;
+
+		case "hShred":
+			slashes[8]++;
+			break;
+
+		case "slash":
+			slashes[9]++;
+			break;
+
+		case "iCut":
+			slashes[10]++;
+			break;
+
+		case "iTear":
+			slashes[11]++;
+			break;
+
+		case "slit":
+			slashes[12]++;
+			break;
+
+		case "cTatter":
+			slashes[13]++;
+			break;
+
+		case "sShave":
+			slashes[14]++;
+			break;
+
+		case "rive":
+			slashes[15]++;
+			break;
+
+		case "cSlash":
+			slashes[16]++;
+			break;
+
+		case "uSlash":
+			slashes[17]++;
+			break;
+
+		case "qCut":
+			slashes[18]++;
+			break;
+
+		case "savagelyRip":
+			slashes[19]++;
+			break;
+
+		case "brutallyTear":
+			slashes[20]++;
+			break;
+
+		case "savagelyShred":
+			slashes[21]++;
+			break;
+
+		case "cruellyRend":
+			slashes[22]++;
+			break;
+
+		case "barbaricallyRend":
+			slashes[23]++;
+			break;
+
+		case "dismember":
+			slashes[24]++;
+			break;
+
+		case "cruellyDismember":
+			slashes[25]++;
+			break;
+			
+		default:
+			//Lets hope we never get here... does it even work like this? saw one example somewhere...
+			clientGUI.printText("general","ERROR in the hit counter code, check that arguments and case names match");
+		
+	}//switch ends
+}
+
+//The triggers that catch the output from mud
+ void triggers(){
 	triggerManager.newTrigger("addBarelyGraze",
 	 "(^You barely graze)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you barely graze)",
 	 "$"+SCRIPT_NAME+".addHit barelyGraze");
@@ -88,266 +212,80 @@ void bootup(){
 	 "(^You incise)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incise)",
 	 "$"+SCRIPT_NAME+".addHit incise");
 	 
-	 triggerManager.newTrigger("addShred",
+	triggerManager.newTrigger("addShred",
 	 "(^You shred)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you shred)",
 	 "$"+SCRIPT_NAME+".addHit shred");
 	 
-	 triggerManager.newTrigger("addHorriblyShred",
+	triggerManager.newTrigger("addHorriblyShred",
 	 "(^You horribly shred)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you horribly shred)",
 	 "$"+SCRIPT_NAME+".addHit hShred");
 	 
-	 triggerManager.newTrigger("addSlash",
+	triggerManager.newTrigger("addSlash",
 	 "(^You slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you slash)",
 	 "$"+SCRIPT_NAME+".addHit slash");
 	 
-	 triggerManager.newTrigger("addIncisivelyCut",
+	triggerManager.newTrigger("addIncisivelyCut",
 	 "(^You incisively cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incisively cut)",
 	 "$"+SCRIPT_NAME+".addHit iCut");
 	 
-	 triggerManager.newTrigger("addIncisivelyTear",
+	triggerManager.newTrigger("addIncisivelyTear",
 	 "(^You incisively tear)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incisively tear)",
 	 "$"+SCRIPT_NAME+".addHit iTear");
 	 	
-	 //note the "(?!your)", it matches everything else but "your" after "You slit", this is needed to exclude the slit emote.
-	 triggerManager.newTrigger("addSlit",
+	//note the "(?!your)", it matches everything else but "your" after "You slit", this is needed to exclude the slit emote.
+	triggerManager.newTrigger("addSlit",
 	 "((^You slit (?!your))|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you slit))",
 	 "$"+SCRIPT_NAME+".addHit slit");
 	 
-	 triggerManager.newTrigger("addCruellyTatter",
+	triggerManager.newTrigger("addCruellyTatter",
 	 "(^You cruelly tatter)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you cruelly tatter)",
 	 "$"+SCRIPT_NAME+".addHit cTatter");
 	 
-	 triggerManager.newTrigger("addSavagelyShave",
+	triggerManager.newTrigger("addSavagelyShave",
 	 "(^You savagely shave)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you savagely shave)",
 	 "$"+SCRIPT_NAME+".addHit sShave");
 	 
-	 triggerManager.newTrigger("addRive",
+	triggerManager.newTrigger("addRive",
 	 "(^You rive)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you rive)",
 	 "$"+SCRIPT_NAME+".addHit rive");
 	 
-	 triggerManager.newTrigger("addCruellySlash",
+	triggerManager.newTrigger("addCruellySlash",
 	 "(^You cruelly slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you cruelly slash)",
 	 "$"+SCRIPT_NAME+".addHit cSlash");
 	 
-	 triggerManager.newTrigger("addUncontrollablySlash",
+	triggerManager.newTrigger("addUncontrollablySlash",
 	 "(^You uncontrollably slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you uncontrollably slash)",
 	 "$"+SCRIPT_NAME+".addHit uSlash");
 	 
-	 triggerManager.newTrigger("addQuicklyCut",
+	triggerManager.newTrigger("addQuicklyCut",
 	 "(^You quickly cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you quickly cut)",
 	 "$"+SCRIPT_NAME+".addHit qCut");
 	 
-	 triggerManager.newTrigger("addSavagelyRip",
+	triggerManager.newTrigger("addSavagelyRip",
 	 "(^You savagely rip)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you savagely rip)",
 	 "$"+SCRIPT_NAME+".addHit savagelyRip");
 	 
-	 triggerManager.newTrigger("addBrutallyTear",
+	triggerManager.newTrigger("addBrutallyTear",
 	 "(^You BRUTALLY TEAR)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you BRUTALLY TEAR)",
 	 "$"+SCRIPT_NAME+".addHit brutallyTear");
 	 
-	 triggerManager.newTrigger("addSavagelyShred",
+	triggerManager.newTrigger("addSavagelyShred",
 	 "(^You SAVAGELY SHRED)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you SAVAGELY SHRED)",
 	 "$"+SCRIPT_NAME+".addHit savagelyShred");
 	 
-	 triggerManager.newTrigger("addCruellyRend",
+	triggerManager.newTrigger("addCruellyRend",
 	 "(^You CRUELLY REND)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you CRUELLY REND)",
 	 "$"+SCRIPT_NAME+".addHit cruellyRend");
 	 
-	 triggerManager.newTrigger("addBarbaricallyRend",
+	triggerManager.newTrigger("addBarbaricallyRend",
 	 "(^You BARBARICALLY REND)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you BARBARICALLY REND)",
 	 "$"+SCRIPT_NAME+".addHit barbaricallyRend");
 	 
-	 triggerManager.newTrigger("addDismember",
+	triggerManager.newTrigger("addDismember",
 	 "(^You DISMEMBER)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you DISMEMBER)",
 	 "$"+SCRIPT_NAME+".addHit dismember");
 	 
-	 triggerManager.newTrigger("addCruellyDismember",
+	triggerManager.newTrigger("addCruellyDismember",
 	 "(^You CRUELLY DISMEMBER)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you CRUELLY DISMEMBER)",
-	 "$"+SCRIPT_NAME+".addHit cruellyDismember");
-}
-
-//
-void addHit(){
-	switch(argument){
-		
-		case "barelyGraze":
-			barelyGrazeCounter++;
-			break;
-
-		case "solidlySlash":
-			solidlySlashCounter++;
-			break;
-
-		case "gash":
-			gashCounter++;
-			break;
-
-		case "lCut":
-			lCutCounter++;
-			break;
-
-		case "cut":
-			cutCounter++;
-			break;
-
-		case "tear":
-			tearCounter++;
-			break;
-
-		case "incise":
-			inciseCounter++;
-			break;
-
-		case "shred":
-			shredCounter++;
-			break;
-
-		case "hShred":
-			hShredCounter++;
-			break;
-
-		case "slash":
-			slashCounter++;
-			break;
-
-		case "iCut":
-			iCutCounter++;
-			break;
-
-		case "iTear":
-			iTearCounter++;
-			break;
-
-		case "slit":
-			slitCounter++;
-			break;
-
-		case "cTatter":
-			cTatterCounter++;
-			break;
-
-		case "sShave":
-			sShaveCounter++;
-			break;
-
-		case "rive":
-			riveCounter++;
-			break;
-
-		case "cSlash":
-			cSlashCounter++;
-			break;
-
-		case "uSlash":
-			uSlashCounter++;
-			break;
-
-		case "qCut":
-			qCutCounter++;
-			break;
-
-		case "savagelyRip":
-			savagelyRipCounter++;
-			break;
-
-		case "brutallyTear":
-			brutallyTearCounter++;
-			break;
-
-		case "savagelyShred":
-			savagelyShredCounter++;
-			break;
-
-		case "cruellyRend":
-			cruellyRendCounter++;
-			break;
-
-		case "barbaricallyRend":
-			barbaricallyRendCounter++;
-			break;
-
-		case "dismember":
-			dismemberCounter++;
-			break;
-
-		case "cruellyDismember":
-			cruellyDismemberCounter++;
-			break;
-			
-		default:
-			//Lets hope we never get here
-			clientGUI.printText("general","ERROR in the hit counter code, check that arguments and case names match");
-		
-	}//switch ends
-}
-
-//This reports the hits to general window
-void reportHits(){
-	//if no hits, no report (if we try to report, we divide by zero)
-	if(countHits()>0){
-		clientGUI.printText("general",""+barelyGrazeCounter+" ("+(barelyGrazeCounter*100/countHits())+"%) barely grazes\n");
-		clientGUI.printText("general",""+solidlySlashCounter+" ("+(solidlySlashCounter*100/countHits())+"%) solidly slashes\n");
-		clientGUI.printText("general",""+gashCounter+" ("+(gashCounter*100/countHits())+"%) gashes\n");
-		clientGUI.printText("general",""+lCutCounter+" ("+(lCutCounter*100/countHits())+"%) lightly cuts\n");
-		clientGUI.printText("general",""+cutCounter+" ("+(cutCounter*100/countHits())+"%) cuts\n");
-		clientGUI.printText("general",""+tearCounter+" ("+(tearCounter*100/countHits())+"%) tears\n");
-		clientGUI.printText("general",""+inciseCounter+" ("+(inciseCounter*100/countHits())+"%) incises\n");
-		clientGUI.printText("general",""+shredCounter+" ("+(shredCounter*100/countHits())+"%) shreds\n");
-		clientGUI.printText("general",""+hShredCounter+" ("+(hShredCounter*100/countHits())+"%) horribly shreds\n");
-		clientGUI.printText("general",""+slashCounter+" ("+(slashCounter*100/countHits())+"%) slashes\n");
-		clientGUI.printText("general",""+iCutCounter+" ("+(iCutCounter*100/countHits())+"%) incisively cuts\n");
-		clientGUI.printText("general",""+iTearCounter+" ("+(iTearCounter*100/countHits())+"%) incisively tears\n");
-		clientGUI.printText("general",""+slitCounter+" ("+(slitCounter*100/countHits())+"%) slits\n");
-		clientGUI.printText("general",""+cTatterCounter+" ("+(cTatterCounter*100/countHits())+"%) cruelly tatters\n");
-		clientGUI.printText("general",""+sShaveCounter+" ("+(sShaveCounter*100/countHits())+"%) savagely shaves\n");
-		clientGUI.printText("general",""+riveCounter+" ("+(riveCounter*100/countHits())+"%) rives\n");
-		clientGUI.printText("general",""+cSlashCounter+" ("+(cSlashCounter*100/countHits())+"%) cruelly slashes\n");
-		clientGUI.printText("general",""+uSlashCounter+" ("+(uSlashCounter*100/countHits())+"%) uncontrollably slashes\n");
-		clientGUI.printText("general",""+qCutCounter+" ("+(qCutCounter*100/countHits())+"%) quickly cuts\n");
-		clientGUI.printText("general",""+savagelyRipCounter+" ("+(savagelyRipCounter*100/countHits())+"%) savagely rips\n");
-		clientGUI.printText("general",""+brutallyTearCounter+" ("+(brutallyTearCounter*100/countHits())+"%) BRUTALLY TEARS\n");
-		clientGUI.printText("general",""+savagelyShredCounter+" ("+(savagelyShredCounter*100/countHits())+"%) SAVAGELY SHREDS\n");
-		clientGUI.printText("general",""+cruellyRendCounter+" ("+(cruellyRendCounter*100/countHits())+"%) CRUELLY RENDS\n");
-		clientGUI.printText("general",""+barbaricallyRendCounter+" ("+(barbaricallyRendCounter*100/countHits())+"%) BARBARICALLY RENDS\n");
-		clientGUI.printText("general",""+dismemberCounter+" ("+(dismemberCounter*100/countHits())+"%) DISMEMBERS\n");
-		clientGUI.printText("general",""+cruellyDismemberCounter+" ("+(cruellyDismemberCounter*100/countHits())+"%) CRUELLY DISMEMBERS\n");
-	}
-	else{
-		clientGUI.printText("general","No registered hits yet\n");
-	}
-
-}
-
-void resetHits(){
-	barelyGrazeCounter=0;
-	solidlySlashCounter=0;
-	gashCounter=0;
-	lCutCounter=0;
-	cutCounter=0;
-	tearCounter=0;
-	inciseCounter=0;
-	shredCounter=0;
-	hShredCounter=0;
-	slashCounter=0;
-	iCutCounter=0;
-	iTearCounter=0;
-	slitCounter=0;
-	cTatterCounter=0;
-	sShaveCounter=0;
-	riveCounter=0;
-	cSlashCounter=0;
-	uSlashCounter=0;
-	qCutCounter=0;
-	savagelyRipCounter=0;
-	brutallyTearCounter=0;
-	savagelyShredCounter=0;
-	cruellyRendCounter=0;
-	barbaricallyRendCounter=0;
-	dismemberCounter=0;
-	cruellyDismemberCounter=0;		
-}
-
-//A helper function that sums all the hits
-int countHits(){
-	return (barelyGrazeCounter+solidlySlashCounter+gashCounter+lCutCounter+cutCounter+tearCounter+inciseCounter+shredCounter+hShredCounter+slashCounter+iCutCounter+iTearCounter+slitCounter+cTatterCounter+sShaveCounter+riveCounter+cSlashCounter+uSlashCounter+qCutCounter+savagelyRipCounter+brutallyTearCounter+savagelyShredCounter+cruellyRendCounter+barbaricallyRendCounter+dismemberCounter+cruellyDismemberCounter);
-}
+	 "$"+SCRIPT_NAME+".addHit cruellyDismember");	 
+ }
