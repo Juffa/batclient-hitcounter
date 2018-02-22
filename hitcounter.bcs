@@ -8,7 +8,7 @@ SCRIPT_NAME="hits";
 SCRIPT_DESC = "collects hit messages";
 SCRIPT_OFF = false;
 
-
+ 
 //Slash message counter array
 slashes = new int [26];
 //Slash messages stored in an array for reporting purposes
