@@ -23,6 +23,8 @@ run(){
 				resetHits();
 				clientGUI.printText("general","OK. Resetting hit counters.\n");
 				break;
+			case "all":
+				reportAllHits();
 			//can add more later
 		}
 	}else{
@@ -37,7 +39,7 @@ void bootup(){
 
 
 //This reports the hits to general window
-void reportHits(){
+void reportAllHits(){
 	//if no hits, no report (if we try to report, we divide by zero)
 	if(countHits(slashes)>0){
 		for(int i=0;i<slashes.length;i++){
@@ -49,6 +51,21 @@ void reportHits(){
 	}
 
 }
+
+void reportHits(){
+	if(countHits(slashes)>0){
+		for(int i=0;i<slashes.length;i++){
+			if(slashes[i]>0){
+				clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+			}
+		}
+	}
+	else{
+		clientGUI.printText("general","No registered hits yet\n");
+	}
+
+}
+
 
 //A module that resets the hits (slashes for now).
 void resetHits(){
