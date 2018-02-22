@@ -8,13 +8,13 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 <b>$hits reset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
 
 
-<b>$hits output looks like this:</b><br>
+<b>'$hits' output looks like this:</b><br>
 7 (77%) cut<br>
 1 (11%) tear<br>
 1 (11%) cruelly tatter<br>
 
 
-<b>and $hits all like this:</b><br>
+<b>and '$hits all' like this:</b><br>
 0 (0%) barely graze<br>
 0 (0%) solidly slash<br>
 0 (0%) gash<br>
