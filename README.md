@@ -3,18 +3,18 @@ A hit message counter for batclient.<br>
 Counts and reports your slash attacks.<br>
 
 Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
-$hits - View your hits<br>
-$hits all - View the list of all possible attacks<br>
-$hits reset - Reset your hits<br>
-Reset the hit counter with /scriptreload and /scriptbootup or restart the client.<br>
+<b>$hits</b> - View your hit.<br>
+<b>$hits all</b> - View the list of all possible attacks.<br>
+<b>$hits reset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
 
-$hits output looks like this:<br>
+
+<b>$hits output looks like this:</b><br>
 7 (77%) cut<br>
 1 (11%) tear<br>
 1 (11%) cruelly tatter<br>
 
 
-and $hits all like this:<br>
+<b>and $hits all like this:</b><br>
 0 (0%) barely graze<br>
 0 (0%) solidly slash<br>
 0 (0%) gash<br>
