@@ -2,17 +2,29 @@
 Simple slash type message hit counter by Jkk.
 I may extend it to cover other hit types also
 Tell me if something is horribly wrong... 
+Thanks to Kohothegreat for advicing with the regexp.
 */
 
 SCRIPT_NAME="hits";
 SCRIPT_DESC = "collects hit messages";
 SCRIPT_OFF = false;
 
+
+Color red = new Color(127, 0, 0);
  
-//Slash message counter array
-slashes = new int [26];
-//Slash messages stored in an array for reporting purposes
-String[] slashMessages={"barely graze","solidly slash","gash","lightly cut","cut","tear","incise","shred","horribly shred","slash","incisively cut","incisively tear","slit","cruelly tatter","savagely shave","rive","cruelly slash","uncontrollably slash","quickly cut","savagely rip","BRUTALLY TEAR","SAVAGELY SHRED","CRUELLY REND","BARBARICALLY REND","DISMEMBER","CRUELLY DISMEMBER"};
+//Message counter arrays
+slashes  = new int [26];
+unarmeds = new int [26];
+bashes   = new int [26];
+pierces  = new int [26];
+shields  = new int [26];
+//Messages stored in an array
+String[] slashMessages  ={"barely graze","solidly slash","gash","lightly cut","cut","tear","incise","shred","horribly shred","slash","incisively cut","incisively tear","slit","cruelly tatter","savagely shave","rive","cruelly slash","uncontrollably slash","quickly cut","savagely rip","BRUTALLY TEAR","SAVAGELY SHRED","CRUELLY REND","BARBARICALLY REND","DISMEMBER","CRUELLY DISMEMBER"};
+String[] unarmedMessages={"pat","spank","smack","bitchslap","lightly strike","boot","kick","suckerpunch","ankle-stomp","stomp","knee-kick","badly kick","jump-kick","uppercut","kidneypunch","spin-kick","headbutt","cruelly headbutt","dragon-punch","savagely triple-kick","roundhouse","bodyslam","run into","REALLY SMASH","BRUTALLY BOOT","BARBARICALLY BEAT"};
+String[] bashMessages   ={"lightly jostle","jostle","butt","bump","thump","stroke","thrust","jab","bash","strike","sock","cuff","knock","flail","whack","beat","smash","cruelly beat","badly smash","horribly thrust","savagely sock","savagely strike","REALLY WHACK","BRUTALLY BEAT","CRUELLY CUFF","BARBARICALLY BASH"};
+String[] pierceMessages ={"barely scratch","scratch","slightly pierce","pierce","puncture","sink","bore","crater","cavitate","shaft","gorge","really poke","riddle","dig into","dig through","chasm","drill","powerfully perforate","powerfully pierce","cruelly crater","savagely shaft","uncontrollably dig through","REALLY DRILL","CRUELLY RIDDLE","BRUTALLY BORE","BARBARICALLY PIERCE"};
+String[] shieldMessages ={"lightly shove","lightly batter","lightly push","lightly bash","lightly slam","lightly crush","heavily shove","batter","heavily push","heavily bash","slam","crush","really shove","really batter","really push","really bash","really slam","really crush","cruelly shove","cruelly batter","cruelly push","cruelly bash","REALLY SLAM","REALLY CRUSH","BRUTALLY CRUSH","BARBARICALLY SLAM"};
+
 //Add more hit type counters later?
 
 // run() happens when you type $hits in the client.
@@ -23,9 +35,23 @@ run(){
 				resetHits();
 				clientGUI.printText("general","OK. Resetting hit counters.\n");
 				break;
-			case "all":
-				reportAllHits();
-			//can add more later
+			case "slash":
+				reportAllHitsType("slash");
+				break;
+			case "bash":
+				reportAllHitsType("bash");
+				break;
+			case "unarmed":
+				reportAllHitsType("unarmed");
+				break;
+			case "shield":
+				reportAllHitsType("shield");
+				break;
+			case "pierce":
+				reportAllHitsType("pierce");
+				break;
+			default:
+				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits reset\n");
 		}
 	}else{
 		reportHits();
@@ -33,43 +59,121 @@ run(){
 }
 
 void bootup(){
-	triggers();
+	//triggers();
+	triggers2();
 }
 
 
-//This reports the hits to general window
-void reportAllHits(){
+//Reports the whole message list and hits to general window
+void reportAllHitsType(String type){
 	//if no hits, no report (if we try to report, we divide by zero)
-	if(countHits(slashes)>0){
-		for(int i=0;i<slashes.length;i++){
-			clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+	if(type.equals("slash")){
+		if(countHits(slashes)>0){
+			for(int i=0;i<slashes.length;i++){
+				clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("bash")){
+		if(countHits(bashes)>0){
+			for(int i=0;i<bashes.length;i++){
+				clientGUI.printText("general",""+bashes[i]+" ("+(bashes[i]*100/countHits(bashes))+"%) "+bashMessages[i]+"\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("unarmed")){
+		if(countHits(unarmeds)>0){
+			for(int i=0;i<unarmeds.length;i++){
+				clientGUI.printText("general",""+unarmeds[i]+" ("+(unarmeds[i]*100/countHits(unarmeds))+"%) "+unarmedMessages[i]+"\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("shield")){
+		if(countHits(shields)>0){
+			for(int i=0;i<shields.length;i++){
+				clientGUI.printText("general",""+shields[i]+" ("+(shields[i]*100/countHits(shields))+"%) "+shieldMessages[i]+"\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("pierce")){
+		if(countHits(pierces)>0){
+			for(int i=0;i<pierces.length;i++){
+				clientGUI.printText("general",""+pierces[i]+" ("+(pierces[i]*100/countHits(pierces))+"%) "+pierceMessages[i]+"\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
 		}
 	}
-	else{
-		clientGUI.printText("general","No registered hits yet\n");
-	}
-
 }
 
+
+
+//Reports only the actual hits done to general window
 void reportHits(){
 	if(countHits(slashes)>0){
+		clientGUI.printText("general","\nSlash attacks:\n");
 		for(int i=0;i<slashes.length;i++){
 			if(slashes[i]>0){
 				clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
 			}
 		}
+	}else{}
+	if(countHits(pierces)>0){
+	clientGUI.printText("general","\nPiercing attacks:\n");
+		for(int i=0;i<pierces.length;i++){
+			if(pierces[i]>0){
+				clientGUI.printText("general",""+pierces[i]+" ("+(pierces[i]*100/countHits(pierces))+"%) "+pierceMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(unarmeds)>0){
+		clientGUI.printText("general","\nUnarmed attacks:\n");
+		for(int i=0;i<unarmeds.length;i++){
+			if(unarmeds[i]>0){
+				clientGUI.printText("general",""+unarmeds[i]+" ("+(unarmeds[i]*100/countHits(unarmeds))+"%) "+unarmedMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(shields)>0){
+		clientGUI.printText("general","\nShield attacks:\n");
+		for(int i=0;i<shields.length;i++){
+			if(shields[i]>0){
+				clientGUI.printText("general",""+shields[i]+" ("+(shields[i]*100/countHits(shields))+"%) "+shieldMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(bashes)>0){
+		clientGUI.printText("general","\nBash attacks:\n");
+		for(int i=0;i<bashes.length;i++){
+			if(bashes[i]>0){
+				clientGUI.printText("general",""+bashes[i]+" ("+(bashes[i]*100/countHits(bashes))+"%) "+bashMessages[i]+"\n");
+			}
+		}
 	}
-	else{
+	if(countHits(slashes)+countHits(pierces)+countHits(unarmeds)+countHits(shields)+countHits(bashes)==0){
 		clientGUI.printText("general","No registered hits yet\n");
 	}
-
+	clientGUI.printText("general","\n");
 }
 
 
 //A module that resets the hits (slashes for now).
 void resetHits(){
 	for(int i=0;i<slashes.length;i++){
-		slashes[i]=0;	
+		slashes[i]=0;
+		unarmeds[i]=0;
+		bashes[i]=0;
+		pierces[i]=0;
+		shields[i]=0;
 	}
 }
 
@@ -87,110 +191,141 @@ void addHit(){
 	slashes[Integer.parseInt(argument)]++;
 }
 
+void addHit2(){
+	clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
+	for(int i=0;i<slashes.length;i++){
+		if(argument.equals(slashMessages[i])){
+			slashes[i]++;
+		}
+		if(argument.equals(unarmedMessages[i])){
+			unarmeds[i]++;
+		}
+		if(argument.equals(bashMessages[i])){
+			bashes[i]++;
+		}
+		if(argument.equals(pierceMessages[i])){
+			pierces[i]++;
+		}
+		if(argument.equals(shieldMessages[i])){
+			shields[i]++;
+		}
+	}
+}
+//([a-z -]+|[A-Z -]+) (?!your)
+//([A-Za-z -]+) 
+//[^\;]
+void triggers2(){
+	triggerManager.newTrigger("addBarelyGraze",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
+	 "$"+SCRIPT_NAME+".addHit2 %3", false, true, false, 
+	 new Color[]{red}, Font.PLAIN);	
+	
+}
+
 //The triggers that catch the output from mud
  void triggers(){
 	triggerManager.newTrigger("addBarelyGraze",
-	 "(^You barely graze)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you barely graze)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou barely graze",
 	 "$"+SCRIPT_NAME+".addHit 0");
 	 
 	triggerManager.newTrigger("addSolidlySlash",
-	 "(^You solidly slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you solidly slash)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou solidly slash",
 	 "$"+SCRIPT_NAME+".addHit 1");
 	 
 	triggerManager.newTrigger("addGash",
-	 "(^You gash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you gash)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou gash",
 	 "$"+SCRIPT_NAME+".addHit 2");
 	 
 	triggerManager.newTrigger("addLightlyCut",
-	 "(^You lightly cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you lightly cut)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou lightly cut",
 	 "$"+SCRIPT_NAME+".addHit 3");
 	 
 	triggerManager.newTrigger("addCut",
-	 "(^You cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you cut)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cut (?!your)",
 	 "$"+SCRIPT_NAME+".addHit 4");
 	 
 	triggerManager.newTrigger("addTear",
-	 "(^You tear)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you tear)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou tear",
 	 "$"+SCRIPT_NAME+".addHit 5");
 	 
 	triggerManager.newTrigger("addIncise",
-	 "(^You incise)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incise)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incise",
 	 "$"+SCRIPT_NAME+".addHit 6");
 	 
 	triggerManager.newTrigger("addShred",
-	 "(^You shred)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you shred)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou shred",
 	 "$"+SCRIPT_NAME+".addHit 7");
 	 
 	triggerManager.newTrigger("addHorriblyShred",
-	 "(^You horribly shred)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you horribly shred)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou horribly shred",
 	 "$"+SCRIPT_NAME+".addHit 8");
 	 
 	triggerManager.newTrigger("addSlash",
-	 "(^You slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you slash)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou slash",
 	 "$"+SCRIPT_NAME+".addHit 9");
 	 
 	triggerManager.newTrigger("addIncisivelyCut",
-	 "(^You incisively cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incisively cut)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incisively cut",
 	 "$"+SCRIPT_NAME+".addHit 10");
 	 
 	triggerManager.newTrigger("addIncisivelyTear",
-	 "(^You incisively tear)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you incisively tear)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incisively tear",
 	 "$"+SCRIPT_NAME+".addHit 11");
 	 	
 	//note the "(?!your)", it matches everything else but "your" after "You slit", this is needed to exclude the slit emote.
 	triggerManager.newTrigger("addSlit",
-	 "((^You slit (?!your))|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you slit))",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou slit (?!your)",
 	 "$"+SCRIPT_NAME+".addHit 12");
 	 
 	triggerManager.newTrigger("addCruellyTatter",
-	 "(^You cruelly tatter)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you cruelly tatter)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cruelly tatter",
 	 "$"+SCRIPT_NAME+".addHit 13");
 	 
 	triggerManager.newTrigger("addSavagelyShave",
-	 "(^You savagely shave)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you savagely shave)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou savagely shave",
 	 "$"+SCRIPT_NAME+".addHit 14");
 	 
 	triggerManager.newTrigger("addRive",
-	 "(^You rive)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you rive)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou rive",
 	 "$"+SCRIPT_NAME+".addHit 15");
 	 
 	triggerManager.newTrigger("addCruellySlash",
-	 "(^You cruelly slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you cruelly slash)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cruelly slash",
 	 "$"+SCRIPT_NAME+".addHit 16");
 	 
 	triggerManager.newTrigger("addUncontrollablySlash",
-	 "(^You uncontrollably slash)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you uncontrollably slash)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou uncontrollably slash",
 	 "$"+SCRIPT_NAME+".addHit 17");
 	 
 	triggerManager.newTrigger("addQuicklyCut",
-	 "(^You quickly cut)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you quickly cut)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou quickly cut",
 	 "$"+SCRIPT_NAME+".addHit 18");
 	 
 	triggerManager.newTrigger("addSavagelyRip",
-	 "(^You savagely rip)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you savagely rip)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou savagely rip",
 	 "$"+SCRIPT_NAME+".addHit 19");
 	 
 	triggerManager.newTrigger("addBrutallyTear",
-	 "(^You BRUTALLY TEAR)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you BRUTALLY TEAR)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou BRUTALLY TEAR",
 	 "$"+SCRIPT_NAME+".addHit 20");
 	 
 	triggerManager.newTrigger("addSavagelyShred",
-	 "(^You SAVAGELY SHRED)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you SAVAGELY SHRED)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou SAVAGELY SHRED",
 	 "$"+SCRIPT_NAME+".addHit 21");
 	 
 	triggerManager.newTrigger("addCruellyRend",
-	 "(^You CRUELLY REND)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you CRUELLY REND)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou CRUELLY REND",
 	 "$"+SCRIPT_NAME+".addHit 22");
 	 
 	triggerManager.newTrigger("addBarbaricallyRend",
-	 "(^You BARBARICALLY REND)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you BARBARICALLY REND)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou BARBARICALLY REND",
 	 "$"+SCRIPT_NAME+".addHit 23");
 	 
 	triggerManager.newTrigger("addDismember",
-	 "(^You DISMEMBER)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you DISMEMBER)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou DISMEMBER",
 	 "$"+SCRIPT_NAME+".addHit 24");
 	 
 	triggerManager.newTrigger("addCruellyDismember",
-	 "(^You CRUELLY DISMEMBER)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you CRUELLY DISMEMBER)",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou CRUELLY DISMEMBER",
 	 "$"+SCRIPT_NAME+".addHit 25");	 
  }
