@@ -11,6 +11,7 @@ SCRIPT_OFF = false;
  
 //Slash message counter array
 slashes = new int [26];
+int misses=0;
 //Slash messages stored in an array for reporting purposes
 String[] slashMessages={"barely graze","solidly slash","gash","lightly cut","cut","tear","incise","shred","horribly shred","slash","incisively cut","incisively tear","slit","cruelly tatter","savagely shave","rive","cruelly slash","uncontrollably slash","quickly cut","savagely rip","BRUTALLY TEAR","SAVAGELY SHRED","CRUELLY REND","BARBARICALLY REND","DISMEMBER","CRUELLY DISMEMBER"};
 //Add more hit type counters later?
@@ -41,8 +42,9 @@ void bootup(){
 void reportAllHits(){
 	//if no hits, no report (if we try to report, we divide by zero)
 	if(countHits(slashes)>0){
+		clientGUI.printText("general","\n"+misses+" ("+(misses*100/(countHits(slashes)+misses))+"%) misses\n");
 		for(int i=0;i<slashes.length;i++){
-			clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+			clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/(countHits(slashes)+misses))+"%) "+slashMessages[i]+"\n");
 		}
 	}
 	else{
@@ -53,6 +55,7 @@ void reportAllHits(){
 
 void reportHits(){
 	if(countHits(slashes)>0){
+		clientGUI.printText("general","\n");
 		for(int i=0;i<slashes.length;i++){
 			if(slashes[i]>0){
 				clientGUI.printText("general",""+slashes[i]+" ("+(slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
@@ -71,6 +74,7 @@ void resetHits(){
 	for(int i=0;i<slashes.length;i++){
 		slashes[i]=0;	
 	}
+	misses=0;
 }
 
 //A helper module that sums all the hits
@@ -86,6 +90,11 @@ int countHits(int[] hitit){
 void addHit(){
 	slashes[Integer.parseInt(argument)]++;
 }
+
+void addMiss(){
+	misses++;
+}
+
 
 //The triggers that catch the output from mud
  void triggers(){
@@ -193,4 +202,8 @@ void addHit(){
 	triggerManager.newTrigger("addCruellyDismember",
 	 "(^You CRUELLY DISMEMBER)|(^(Grinning|Smiling|Cackling) (diabolically|devilishly|demonically) you CRUELLY DISMEMBER)",
 	 "$"+SCRIPT_NAME+".addHit 25");	 
+	 
+	triggerManager.newTrigger("addMiss",
+	 "^You miss",
+	 "$"+SCRIPT_NAME+".addMiss");
  }
