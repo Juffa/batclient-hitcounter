@@ -15,7 +15,10 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 
 
 <b>and '$hits all' like this:</b><br>
-6 (18%) misses<br>
+6 (18%) missed<br>
+0 (0%) dodged<br>
+0 (0%) parried<br>
+
 0 (0%) barely graze<br>
 0 (0%) solidly slash<br>
 0 (0%) gash<br>
@@ -43,4 +46,4 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 0 (0%) DISMEMBER<br>
 0 (0%) CRUELLY DISMEMBER<br>
 
-Note: miss % is counted in the all hits but no enemy dodges or parries, shows different percentages.<br>
+
