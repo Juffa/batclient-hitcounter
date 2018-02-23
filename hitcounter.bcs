@@ -59,8 +59,8 @@ run(){
 }
 
 void bootup(){
-	//triggers();
-	triggers2();
+	triggers();
+	//triggers2();
 }
 
 
@@ -186,13 +186,9 @@ int countHits(int[] hitit){
 	return(total);
 }
 
-//I couldn't figure out how to directly add the values from the triggers so I made a separate module
-void addHit(){
-	slashes[Integer.parseInt(argument)]++;
-}
 
-void addHit2(){
-	clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
+void addHit(){
+	//clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
 	for(int i=0;i<slashes.length;i++){
 		if(argument.equals(slashMessages[i])){
 			slashes[i]++;
@@ -211,121 +207,27 @@ void addHit2(){
 		}
 	}
 }
-//([a-z -]+|[A-Z -]+) (?!your)
-//([A-Za-z -]+) 
-//[^\;]
-void triggers2(){
+
+
+
+
+void triggers(){
 	triggerManager.newTrigger("addBarelyGraze",
 	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
-	 "$"+SCRIPT_NAME+".addHit2 %3", false, true, false, 
-	 new Color[]{red}, Font.PLAIN);	
+	 "$"+SCRIPT_NAME+".addHit %3");	
 	
 }
 
-//The triggers that catch the output from mud
- void triggers(){
+//for debug purposes
+void triggers2(){
 	triggerManager.newTrigger("addBarelyGraze",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou barely graze",
-	 "$"+SCRIPT_NAME+".addHit 0");
-	 
-	triggerManager.newTrigger("addSolidlySlash",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou solidly slash",
-	 "$"+SCRIPT_NAME+".addHit 1");
-	 
-	triggerManager.newTrigger("addGash",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou gash",
-	 "$"+SCRIPT_NAME+".addHit 2");
-	 
-	triggerManager.newTrigger("addLightlyCut",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou lightly cut",
-	 "$"+SCRIPT_NAME+".addHit 3");
-	 
-	triggerManager.newTrigger("addCut",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cut (?!your)",
-	 "$"+SCRIPT_NAME+".addHit 4");
-	 
-	triggerManager.newTrigger("addTear",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou tear",
-	 "$"+SCRIPT_NAME+".addHit 5");
-	 
-	triggerManager.newTrigger("addIncise",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incise",
-	 "$"+SCRIPT_NAME+".addHit 6");
-	 
-	triggerManager.newTrigger("addShred",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou shred",
-	 "$"+SCRIPT_NAME+".addHit 7");
-	 
-	triggerManager.newTrigger("addHorriblyShred",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou horribly shred",
-	 "$"+SCRIPT_NAME+".addHit 8");
-	 
-	triggerManager.newTrigger("addSlash",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou slash",
-	 "$"+SCRIPT_NAME+".addHit 9");
-	 
-	triggerManager.newTrigger("addIncisivelyCut",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incisively cut",
-	 "$"+SCRIPT_NAME+".addHit 10");
-	 
-	triggerManager.newTrigger("addIncisivelyTear",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou incisively tear",
-	 "$"+SCRIPT_NAME+".addHit 11");
-	 	
-	//note the "(?!your)", it matches everything else but "your" after "You slit", this is needed to exclude the slit emote.
-	triggerManager.newTrigger("addSlit",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou slit (?!your)",
-	 "$"+SCRIPT_NAME+".addHit 12");
-	 
-	triggerManager.newTrigger("addCruellyTatter",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cruelly tatter",
-	 "$"+SCRIPT_NAME+".addHit 13");
-	 
-	triggerManager.newTrigger("addSavagelyShave",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou savagely shave",
-	 "$"+SCRIPT_NAME+".addHit 14");
-	 
-	triggerManager.newTrigger("addRive",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou rive",
-	 "$"+SCRIPT_NAME+".addHit 15");
-	 
-	triggerManager.newTrigger("addCruellySlash",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou cruelly slash",
-	 "$"+SCRIPT_NAME+".addHit 16");
-	 
-	triggerManager.newTrigger("addUncontrollablySlash",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou uncontrollably slash",
-	 "$"+SCRIPT_NAME+".addHit 17");
-	 
-	triggerManager.newTrigger("addQuicklyCut",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou quickly cut",
-	 "$"+SCRIPT_NAME+".addHit 18");
-	 
-	triggerManager.newTrigger("addSavagelyRip",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou savagely rip",
-	 "$"+SCRIPT_NAME+".addHit 19");
-	 
-	triggerManager.newTrigger("addBrutallyTear",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou BRUTALLY TEAR",
-	 "$"+SCRIPT_NAME+".addHit 20");
-	 
-	triggerManager.newTrigger("addSavagelyShred",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou SAVAGELY SHRED",
-	 "$"+SCRIPT_NAME+".addHit 21");
-	 
-	triggerManager.newTrigger("addCruellyRend",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou CRUELLY REND",
-	 "$"+SCRIPT_NAME+".addHit 22");
-	 
-	triggerManager.newTrigger("addBarbaricallyRend",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou BARBARICALLY REND",
-	 "$"+SCRIPT_NAME+".addHit 23");
-	 
-	triggerManager.newTrigger("addDismember",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou DISMEMBER",
-	 "$"+SCRIPT_NAME+".addHit 24");
-	 
-	triggerManager.newTrigger("addCruellyDismember",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou CRUELLY DISMEMBER",
-	 "$"+SCRIPT_NAME+".addHit 25");	 
- }
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
+	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, 
+	 new Color[]{red}, Font.PLAIN);	
+	//([a-z -]+|[A-Z -]+) (?!your)
+	//([A-Za-z -]+) 
+	//[^\;]
+	
+}
+
+
