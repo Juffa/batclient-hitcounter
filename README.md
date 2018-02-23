@@ -1,6 +1,7 @@
 # batclient-hitcounter
 A hit message counter for batclient.<br>
-Counts and reports your slash attacks.<br>
+Counts and reports your attacks.<br>
+May or may not count all of the attacs...<br>
 
 Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
 
