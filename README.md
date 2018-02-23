@@ -15,12 +15,13 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 
 
 <b>and '$hits all' like this:</b><br>
+6 (18%) misses<br>
 0 (0%) barely graze<br>
 0 (0%) solidly slash<br>
 0 (0%) gash<br>
 0 (0%) lightly cut<br>
-7 (77%) cut<br>
-1 (11%) tear<br>
+21 (65%) cut<br>
+5 (15%) tear<br>
 0 (0%) incise<br>
 0 (0%) shred<br>
 0 (0%) horribly shred<br>
@@ -28,7 +29,7 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 0 (0%) incisively cut<br>
 0 (0%) incisively tear<br>
 0 (0%) slit<br>
-1 (11%) cruelly tatter<br>
+0 (0%) cruelly tatter<br>
 0 (0%) savagely shave<br>
 0 (0%) rive<br>
 0 (0%) cruelly slash<br>
@@ -41,3 +42,5 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 0 (0%) BARBARICALLY REND<br>
 0 (0%) DISMEMBER<br>
 0 (0%) CRUELLY DISMEMBER<br>
+
+Note: miss % is counted in the all hits but no enemy dodges or parries, shows different percentages.<br>
