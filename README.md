@@ -3,41 +3,30 @@ A hit message counter for batclient.<br>
 Counts and reports your slash attacks.<br>
 
 Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
+
 <b>$hits</b> - View your hit.<br>
-<b>$hits all</b> - View the list of all possible attacks.<br>
+<b>$hits slash</b> - View all slash type attacks<br>
+<b>$hits pierce</b> - View all pierce type attacks<br>
+<b>$hits bash</b> - View all bash type attacks<br>
+<b>$hits shield</b> - View all shield attacks<br>
+<b>$hits unarmed</b> - View all unarmed attacks<br>
 <b>$hits reset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
 
 
 <b>'$hits' output looks like this:</b><br>
-7 (77%) cut<br>
-1 (11%) tear<br>
-1 (11%) cruelly tatter<br>
+Slash attacks:<br>
+13 (92%) cut<br>
+1 (7%) slit<br>
 
+Piercing attacks:<br>
+19 (54%) slightly pierce<br>
+16 (45%) pierce<br>
 
-<b>and '$hits all' like this:</b><br>
-0 (0%) barely graze<br>
-0 (0%) solidly slash<br>
-0 (0%) gash<br>
-0 (0%) lightly cut<br>
-7 (77%) cut<br>
-1 (11%) tear<br>
-0 (0%) incise<br>
-0 (0%) shred<br>
-0 (0%) horribly shred<br>
-0 (0%) slash<br>
-0 (0%) incisively cut<br>
-0 (0%) incisively tear<br>
-0 (0%) slit<br>
-1 (11%) cruelly tatter<br>
-0 (0%) savagely shave<br>
-0 (0%) rive<br>
-0 (0%) cruelly slash<br>
-0 (0%) uncontrollably slash<br>
-0 (0%) quickly cut<br>
-0 (0%) savagely rip<br>
-0 (0%) BRUTALLY TEAR<br>
-0 (0%) SAVAGELY SHRED<br>
-0 (0%) CRUELLY REND<br>
-0 (0%) BARBARICALLY REND<br>
-0 (0%) DISMEMBER<br>
-0 (0%) CRUELLY DISMEMBER<br>
+Unarmed attacks:<br>
+3 (100%) smack<br>
+
+Shield attacks:<br>
+7 (63%) lightly bash<br>
+2 (18%) lightly slam<br>
+1 (9%) heavily bash<br>
+1 (9%) slam<br>
