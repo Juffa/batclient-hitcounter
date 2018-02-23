@@ -16,18 +16,16 @@ Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in
 
 <b>'$hits' output looks like this:</b><br>
 Slash attacks:<br>
-13 (92%) cut<br>
-1 (7%) slit<br>
+4 (5%) lightly cut<br>
+19 (26%) cut<br>
+6 (8%) tear<br>
 
-Piercing attacks:<br>
-19 (54%) slightly pierce<br>
-16 (45%) pierce<br>
+<b>Unarmed attacks:</b><br>
+10 (14%) smack<br>
+13 (18%) bitchslap<br>
+2 (3%) suckerpunch<br>
 
-Unarmed attacks:<br>
-3 (100%) smack<br>
-
-Shield attacks:<br>
-7 (63%) lightly bash<br>
-2 (18%) lightly slam<br>
-1 (9%) heavily bash<br>
-1 (9%) slam<br>
+<b>Missed attacks:</b><br>
+14 (19%) missed<br>
+2 (3%) dodged<br>
+4 (5%) missed<br>
