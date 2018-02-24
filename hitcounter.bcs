@@ -11,6 +11,8 @@ SCRIPT_OFF = false;
 
 
 Color red = new Color(127, 127, 0);
+Color white = new Color(255,255,255);
+
  
 //Message counter arrays
 slashes  = new int [26];
@@ -100,7 +102,8 @@ void reportAllHitsType(String type){
 	if(type.equals("slash")){
 		if(countHits(slashes)>0){
 			for(int i=0;i<slashes.length;i++){
-				clientGUI.printText("general",""+slashes[i]+" ("+Math.round((float)slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+				//clientGUI.printText("general",""+slashes[i]+" ("+Math.round((float)slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
+				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],20)+" "+slashes[i]+spaceCounter(slashes[i],3)+"("+(int)Math.round((float)slashes[i]*100/countHits(slashes))+"%)\n");
 			}
 		}
 		else{
@@ -109,7 +112,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("bash")){
 		if(countHits(bashes)>0){
 			for(int i=0;i<bashes.length;i++){
-				clientGUI.printText("general",""+bashes[i]+" ("+Math.round((float)bashes[i]*100/countHits(bashes))+"%) "+bashMessages[i]+"\n");
+				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],20)+" "+bashes[i]+spaceCounter(bashes[i],3)+"("+(int)Math.round((float)bashes[i]*100/countHits(bashes))+"%)\n");
 			}
 		}
 		else{
@@ -118,7 +121,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("unarmed")){
 		if(countHits(unarmeds)>0){
 			for(int i=0;i<unarmeds.length;i++){
-				clientGUI.printText("general",""+unarmeds[i]+" ("+Math.round((float)unarmeds[i]*100/countHits(unarmeds))+"%) "+unarmedMessages[i]+"\n");
+				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],20)+" "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+(int)Math.round((float)unarmeds[i]*100/countHits(unarmeds))+"%)\n");
 			}
 		}
 		else{
@@ -127,7 +130,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("shield")){
 		if(countHits(shields)>0){
 			for(int i=0;i<shields.length;i++){
-				clientGUI.printText("general",""+shields[i]+" ("+Math.round((float)shields[i]*100/countHits(shields))+"%) "+shieldMessages[i]+"\n");
+				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],20)+" "+shields[i]+spaceCounter(shields[i],3)+"("+(int)Math.round((float)shields[i]*100/countHits(shields))+"%)\n");
 			}
 		}
 		else{
@@ -136,7 +139,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("pierce")){
 		if(countHits(pierces)>0){
 			for(int i=0;i<pierces.length;i++){
-				clientGUI.printText("general",""+pierces[i]+" ("+Math.round((float)pierces[i]*100/countHits(pierces))+"%) "+pierceMessages[i]+"\n");
+				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],20)+" "+pierces[i]+spaceCounter(pierces[i],3)+"("+(int)Math.round((float)pierces[i]*100/countHits(pierces))+"%)\n");
 			}
 		}
 		else{
@@ -205,7 +208,7 @@ void reportHits(){
 					hitPercentage=(int)Math.round((float)shields[i]*100/countAllHits());
 				}
 				//clientGUI.printText("general",""+shields[i]+" ("+Math.round((float)shields[i]*100/countAllHits())+"%) "+shieldMessages[i]+"\n");
-				clientGUI.printText("general",""+shieldsMessages[i]+spaceCounterString(shieldMessages[i],longestMessage())+" "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestMessage())+" "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
 	}else{}
@@ -521,7 +524,7 @@ int countAllHits(){
 } 
 
 int countAllCompareHits(){
-	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+dodged+missed+parriedCompare);
+	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+dodgedCompare+missedCompare+parriedCompare);
 } 
 
 void addHit(){
@@ -595,10 +598,9 @@ void addParriesMyHit(){
 
 
 void triggers(){
-	triggerManager.newTrigger("addBarelyGraze",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him cry out in pain!)",
-	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, 
-	 new Color[]{red}, Font.PLAIN);	
+	triggerManager.newTrigger("addHit",
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold) ?([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
+	 "$"+SCRIPT_NAME+".addHit %3");//, false, true, false, new Color[]{white}, Font.PLAIN);	
 	
 	triggerManager.newTrigger("addMiss",
 	 "^You miss",
