@@ -10,7 +10,7 @@ SCRIPT_DESC = "collects hit messages";
 SCRIPT_OFF = false;
 
 
-Color red = new Color(127, 0, 0);
+Color red = new Color(127, 127, 0);
  
 //Message counter arrays
 slashes  = new int [26];
@@ -22,6 +22,17 @@ shields  = new int [26];
 int missed=0;
 int dodged=0;
 int parried=0;
+
+slashesCompare  = new int [26];
+unarmedsCompare = new int [26];
+bashesCompare   = new int [26];
+piercesCompare  = new int [26];
+shieldsCompare  = new int [26];
+
+int missedCompare=0;
+int dodgedCompare=0;
+int parriedCompare=0;
+
 
 //Messages stored in an array
 String[] slashMessages  ={"barely graze","solidly slash","gash","lightly cut","cut","tear","incise","shred","horribly shred","slash","incisively cut","incisively tear","slit","cruelly tatter","savagely shave","rive","cruelly slash","uncontrollably slash","quickly cut","savagely rip","BRUTALLY TEAR","SAVAGELY SHRED","CRUELLY REND","BARBARICALLY REND","DISMEMBER","CRUELLY DISMEMBER"};
@@ -40,21 +51,35 @@ run(){
 				resetHits();
 				clientGUI.printText("general","OK. Resetting hit counters.\n");
 				break;
+				
 			case "slash":
 				reportAllHitsType("slash");
 				break;
+				
 			case "bash":
 				reportAllHitsType("bash");
 				break;
+				
 			case "unarmed":
 				reportAllHitsType("unarmed");
 				break;
+				
 			case "shield":
 				reportAllHitsType("shield");
 				break;
+				
 			case "pierce":
 				reportAllHitsType("pierce");
 				break;
+				
+			case "store":
+				copyCompare();
+				break;
+				
+			case "compare":
+				reportCompare();
+				break;
+				
 			default:
 				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits reset\n");
 		}
@@ -69,7 +94,7 @@ void bootup(){
 }
 
 
-//Reports the whole message list and hits to general window
+//Reports the whole message list of single type and hits
 void reportAllHitsType(String type){
 	//if no hits, no report (if we try to report, we divide by zero)
 	if(type.equals("slash")){
@@ -121,14 +146,13 @@ void reportAllHitsType(String type){
 }
 
 
-
-//Reports only the actual hits done to general window
+//Reports only the actual hits done but from all types if there are any
 void reportHits(){
 	if(countHits(slashes)>0){
 		clientGUI.printText("general","\nSlash attacks:\n");
 		for(int i=0;i<slashes.length;i++){
 			if(slashes[i]>0){
-				clientGUI.printText("general",""+slashes[i]+" ("+Math.round((float)slashes[i]*100/countAllHits())+"%) "+slashMessages[i]+"\n");
+				clientGUI.printText("general",""+slashes[i]+spaceCounter(slashes[i],3)+"("+Math.round((float)slashes[i]*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)slashes[i]*100/countAllHits())),3)+""+slashMessages[i]+"\n");
 			}
 		}
 	}else{}
@@ -167,13 +191,13 @@ void reportHits(){
 	if((dodged+parried+missed)>0){
 		clientGUI.printText("general","\nMissed attacks:\n");
 		if(missed>0){
-			clientGUI.printText("general",""+missed+" ("+Math.round((float)missed*100/countAllHits())+"%) missed \n");
+			clientGUI.printText("general",""+missed+spaceCounter(missed,3)+"("+Math.round((float)missed*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)missed*100/countAllHits())),3)+"missed\n");
 		}
 		if(dodged>0){
-			clientGUI.printText("general",""+dodged+" ("+Math.round((float)dodged*100/countAllHits())+"%) dodged \n");
+			clientGUI.printText("general",""+dodged+spaceCounter(dodged,3)+"("+Math.round((float)dodged*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)dodged*100/countAllHits())),3)+"dodged\n");
 		}
 		if(parried>0){
-			clientGUI.printText("general",""+parried+" ("+Math.round((float)parried*100/countAllHits())+"%) missed \n");
+			clientGUI.printText("general",""+parried+spaceCounter(parried,3)+"("+Math.round((float)parried*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)parried*100/countAllHits())),3)+"parried\n");
 		}			
 	}
 	if(countAllHits()==0){
@@ -183,7 +207,83 @@ void reportHits(){
 }
 
 
-//A module that resets the hits (slashes for now).
+//Reports the current hits and compare hits
+void reportCompare(){
+	if(countHits(slashesCompare)>0){
+		clientGUI.printText("general","\nSlash attacks:\n");
+		for(int i=0;i<slashesCompare.length;i++){
+			if(slashesCompare[i]>0||slashes[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(slashes[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)slashes[i]*100/countAllHits());
+				}
+				
+				if(slashesCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)slashesCompare[i]*100/countAllCompareHits());
+				}
+				
+				clientGUI.printText("general",""+slashes[i]+spaceCounter(slashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+" VS "+slashesCompare[i]+spaceCounter(slashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+""+slashMessages[i]+spaceCounterString(slashMessages[i],22)+"tähän ero prosenteissa"+"\n");
+			}
+		}
+	}else{}
+	if(countHits(piercesCompare)>0){
+	clientGUI.printText("general","\nPiercing attacks:\n");
+		for(int i=0;i<piercesCompare.length;i++){
+			if(piercesCompare[i]>0){
+				clientGUI.printText("general",""+piercesCompare[i]+" ("+Math.round((float)piercesCompare[i]*100/countAllCompareHits())+"%) "+pierceMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(unarmedsCompare)>0){
+		clientGUI.printText("general","\nUnarmed attacks:\n");
+		for(int i=0;i<unarmedsCompare.length;i++){
+			if(unarmedsCompare[i]>0){
+				clientGUI.printText("general",""+unarmedsCompare[i]+" ("+Math.round((float)unarmedsCompare[i]*100/countAllCompareHits())+"%) "+unarmedMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(shieldsCompare)>0){
+		clientGUI.printText("general","\nShield attacks:\n");
+		for(int i=0;i<shieldsCompare.length;i++){
+			if(shieldsCompare[i]>0){
+				clientGUI.printText("general",""+shieldsCompare[i]+" ("+Math.round((float)shieldsCompare[i]*100/countAllCompareHits())+"%) "+shieldMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if(countHits(bashesCompare)>0){
+		clientGUI.printText("general","\nBash attacks:\n");
+		for(int i=0;i<bashesCompare.length;i++){
+			if(bashesCompare[i]>0){
+				clientGUI.printText("general",""+bashesCompare[i]+" ("+Math.round((float)bashesCompare[i]*100/countAllCompareHits())+"%) "+bashMessages[i]+"\n");
+			}
+		}
+	}else{}
+	if((dodgedCompare+parriedCompare+missedCompare)>0){
+		clientGUI.printText("general","\nmissedCompare attacks:\n");
+		if(missedCompare>0){
+			clientGUI.printText("general",""+missedCompare+spaceCounter(missedCompare,3)+"("+Math.round((float)missedCompare*100/countAllCompareHits())+"%)"+spaceCounter((int)(Math.round((float)missedCompare*100/countAllCompareHits())),2)+" missed\n");
+		}
+		if(dodgedCompare>0){
+			clientGUI.printText("general",""+dodgedCompare+spaceCounter(dodgedCompare,3)+"("+Math.round((float)dodgedCompare*100/countAllCompareHits())+"%)"+spaceCounter((int)(Math.round((float)dodgedCompare*100/countAllCompareHits())),2)+" dodged\n");
+		}
+		if(parriedCompare>0){
+			clientGUI.printText("general",""+parriedCompare+spaceCounter(parriedCompare,3)+"("+Math.round((float)parriedCompare*100/countAllCompareHits())+"%)"+spaceCounter((int)(Math.round((float)parriedCompare*100/countAllCompareHits())),2)+" parried\n");
+		}			
+	}
+	if(countAllCompareHits()==0){
+		clientGUI.printText("general","No registered hits yet\n");
+	}
+	clientGUI.printText("general","\n");
+}
+
+
+
+//A module that resets the hits.
 void resetHits(){
 	for(int i=0;i<slashes.length;i++){
 		slashes[i]=0;
@@ -192,6 +292,10 @@ void resetHits(){
 		pierces[i]=0;
 		shields[i]=0;
 	}
+	missed=0;
+	dodged=0;
+	parried=0;
+	
 }
 
 //A helper module that sums all the hits
@@ -207,6 +311,9 @@ int countAllHits(){
 	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+dodged+missed+parried);
 } 
 
+int countAllCompareHits(){
+	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+dodged+missed+parriedCompare);
+} 
 
 void addHit(){
 	//clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
@@ -229,6 +336,41 @@ void addHit(){
 	}
 }
 
+void copyCompare(){
+	
+	slashesCompare=Arrays.copyOf(slashes, slashes.length);
+	unarmedsCompare=Arrays.copyOf(unarmeds, unarmeds.length);
+	bashesCompare=Arrays.copyOf(bashes, bashes.length);
+	piercesCompare=Arrays.copyOf(pierces, pierces.length);
+	shieldsCompare=Arrays.copyOf(shields, shields.length);
+	missedCompare=missed;
+	dodgedCompare=dodged;
+	parriedCompare=parried;
+}
+
+
+
+
+
+
+
+
+//outputs a string of empty spaces m=the wanted size, n=amount already taken by numbers
+String spaceCounter(int n,int m){
+	String result="";
+	for(int i=Integer.toString(n).length();i<=m-1;i++){
+		result+=" ";
+	}
+	return result;
+}
+String spaceCounterString(String name,int space){
+	String result="";
+	for(int i=0;i<space-name.length();i++){
+		result+=" ";
+	}
+	return result;
+}
+
 void addMiss(){
 	missed++;
 }
@@ -245,8 +387,9 @@ void addParriesMyHit(){
 
 void triggers(){
 	triggerManager.newTrigger("addBarelyGraze",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
-	 "$"+SCRIPT_NAME+".addHit %3");	
+	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him cry out in pain!)",
+	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, 
+	 new Color[]{red}, Font.PLAIN);	
 	
 	triggerManager.newTrigger("addMiss",
 	 "^You miss",
