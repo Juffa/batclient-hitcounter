@@ -1,49 +1,55 @@
-# batclient-hitcounter
+# batclient-hitcounter V1.0? By Jkk<br>
 A hit message counter for batclient.<br>
-Counts and reports your slash attacks.<br>
+Counts and reports your attacks.<br>
+Thanks to Kohothegreat for advice with regexp<br>
+Tell me if something bugs or it misses hits or records something that it should not<br> 
 
-Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
-<b>$hits</b> - View your hit.<br>
-<b>$hits all</b> - View the list of all possible attacks.<br>
-<b>$hits reset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
+<b>Instructions</b><br>
+Copy hitcounter.bcs into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
+You have to have correct battle settings for the trigger to work:<br> 
+'battle listen all 3' or 'battle listen yourname 3'. Replace yourname with your name.<br>
+
+<b>$hits</b> - View your hits.<br>
+<b>$hits (r)eset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
+<b>$hits (s)tore</b> - Store current hits so you can compare them later. Does NOT store hits over resets.<br>
+<b>$hits (c)ompare</b> - Compare current and stored hits.<br>
+<b>$hits slash</b> - View all slash type attacks.<br>
+<b>$hits pierce</b> - View all pierce type attacks.<br>
+<b>$hits bash</b> - View all bash type attacks.<br>
+<b>$hits shield</b> - View all shield attacks.<br>
+<b>$hits unarmed</b> - View all unarmed attacks.<br>
 
 
 <b>'$hits' output looks like this:</b><br>
-7 (77%) cut<br>
-1 (11%) tear<br>
-1 (11%) cruelly tatter<br>
+
+Slash attacks:<br>
+lightly cut    1  (1%)<br>  
+cut            65 (47%)<br>
+tear           35 (26%)<br> 
+incise         1  (1%)<br>
+incisively cut 1  (1%)<br>  
+cruelly tatter 2  (1%)<br>  
+
+Missed attacks:<br>
+missed         22 (16%)<br>
+dodged         6  (4%)<br>
+parried        4  (3%)<br>
 
 
-<b>and '$hits all' like this:</b><br>
-6 (18%) missed<br>
-0 (0%) dodged<br>
-0 (0%) parried<br>
+<b>'$hits compare' output looks like this:</b><br>
+Hit              Stored         Current  Diff<br>
+Slash attacks:<br>
+lightly cut     1  (1%)   --->  0  (0%)  -1%<br>
+cut             65 (47%)  --->  14 (64%) +17%<br>
+tear            35 (26%)  --->  4  (18%) -8%<br>
+incise          1  (1%)   --->  0  (0%)  -1%<br>
+incisively cut  1  (1%)   --->  0  (0%)  -1%<br>
+incisively tear 0  (0%)   --->  1  (5%)  +5%<br>
+cruelly tatter  2  (1%)   --->  0  (0%)  -1%<br>
+savagely shave  0  (0%)   --->  1  (5%)  +5%<br>
 
-0 (0%) barely graze<br>
-0 (0%) solidly slash<br>
-0 (0%) gash<br>
-0 (0%) lightly cut<br>
-21 (65%) cut<br>
-5 (15%) tear<br>
-0 (0%) incise<br>
-0 (0%) shred<br>
-0 (0%) horribly shred<br>
-0 (0%) slash<br>
-0 (0%) incisively cut<br>
-0 (0%) incisively tear<br>
-0 (0%) slit<br>
-0 (0%) cruelly tatter<br>
-0 (0%) savagely shave<br>
-0 (0%) rive<br>
-0 (0%) cruelly slash<br>
-0 (0%) uncontrollably slash<br>
-0 (0%) quickly cut<br>
-0 (0%) savagely rip<br>
-0 (0%) BRUTALLY TEAR<br>
-0 (0%) SAVAGELY SHRED<br>
-0 (0%) CRUELLY REND<br>
-0 (0%) BARBARICALLY REND<br>
-0 (0%) DISMEMBER<br>
-0 (0%) CRUELLY DISMEMBER<br>
-
-
+missed attacks:<br>
+missed          22 (16%)  --->  1  (5%)  -11%<br>
+dodged          6  (4%)   --->  1  (5%)  +1%<br>
+parried         4  (3%)   --->  0  (0%)  -3%<br>
+=======
