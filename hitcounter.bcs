@@ -1,6 +1,6 @@
 /*
 Not-so-simple (anymore) hit message counter V1.0? by Jkk.
-Tell me if something is horribly wrong... or catches wrong lines as hits or doesn't catch all hits
+Tell me if something is horribly wrong... or the trigger catches wrong lines as hits or doesn't catch all hits.
 Thanks to Kohothegreat for advice with the regexp.
 */
 
@@ -33,7 +33,6 @@ piercesCompare  = new int [26];
 shieldsCompare  = new int [26];
 tigerMaCompare  = new int [26];
 monkMaCompare	= new int [26];
-
 int missedCompare=0;
 int dodgedCompare=0;
 int parriedCompare=0;
