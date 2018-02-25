@@ -757,9 +757,10 @@ void triggers(){
 	 "$"+SCRIPT_NAME+".addHit %3");//, false, true, false, new Color[]{white}, Font.PLAIN);	
 	
 	triggerManager.newTrigger("addMiss",
-	 "^You miss",
+	 "^You miss (?!.*with.*)",
 	 "$"+SCRIPT_NAME+".addMiss");
-	
+	 //with=bladed fury miss
+	 
 	triggerManager.newTrigger("addDodgesMyHit",
 	 "^[A-Za-z -]+ successfully dodges your futile",
 	 "$"+SCRIPT_NAME+".addDodgesMyHit");
