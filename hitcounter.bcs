@@ -13,6 +13,7 @@ Color red = new Color(127, 127, 0);
 Color white = new Color(255,255,255);
 
  
+
 //Message counter arrays
 slashes  = new int [26];
 unarmeds = new int [26];
@@ -36,6 +37,7 @@ monkMaCompare	= new int [26];
 int missedCompare=0;
 int dodgedCompare=0;
 int parriedCompare=0;
+
 
 
 //Messages stored in an array
@@ -115,6 +117,7 @@ void bootup(){
 //Reports the whole message list of single type and hits
 void reportAllHitsType(String type){
 	//if no hits, no report (if we try to report, we divide by zero)
+
 	if(type.equals("slash")){
 		if(countHits(slashes)>0){
 			for(int i=0;i<slashes.length;i++){
@@ -207,6 +210,7 @@ void reportHits(){
 					hitPercentage=(int)Math.round((float)unarmeds[i]*100/countAllHits());
 				}
 				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],longestMessage())+" "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+
 			}
 		}
 	}else{}
@@ -615,7 +619,6 @@ void resetHits(){
 	missed=0;
 	dodged=0;
 	parried=0;
-	
 }
 
 //Counts the hits of a single attack type
@@ -729,5 +732,3 @@ void triggers(){
 	 "^[A-Za-z -]+ successfully parries your",
 	 "$"+SCRIPT_NAME+".addParriesMyHit");
 }
-
-
