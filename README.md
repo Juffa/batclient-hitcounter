@@ -1,21 +1,23 @@
-# batclient-hitcounter
+# batclient-hitcounter V1.0? By Jkk<br>
 A hit message counter for batclient.<br>
 Counts and reports your attacks.<br>
-May or may not count all of the attacs...<br>
+Thanks to Kohothegreat for advice with regexp<br>
+Tell me if something bugs or it misses hits or records something that it should not<br> 
 
-Copy into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
+<b>Instructions</b><br>
+Copy hitcounter.bcs into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
 You have to have correct battle settings for the trigger to work:<br> 
 'battle listen all 3' or 'battle listen yourname 3'. Replace yourname with your name.<br>
 
 <b>$hits</b> - View your hits.<br>
 <b>$hits (r)eset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
-<b>$hits (s)tore</b> - Store current hits so you can compare them later<br>
-<b>$hits (c)ompare</b> - Compare current and stored hits<br>
-<b>$hits slash</b> - View all slash type attacks<br>
-<b>$hits pierce</b> - View all pierce type attacks<br>
-<b>$hits bash</b> - View all bash type attacks<br>
-<b>$hits shield</b> - View all shield attacks<br>
-<b>$hits unarmed</b> - View all unarmed attacks<br>
+<b>$hits (s)tore</b> - Store current hits so you can compare them later. Does NOT store hits over resets.<br>
+<b>$hits (c)ompare</b> - Compare current and stored hits.<br>
+<b>$hits slash</b> - View all slash type attacks.<br>
+<b>$hits pierce</b> - View all pierce type attacks.<br>
+<b>$hits bash</b> - View all bash type attacks.<br>
+<b>$hits shield</b> - View all shield attacks.<br>
+<b>$hits unarmed</b> - View all unarmed attacks.<br>
 
 
 <b>'$hits' output looks like this:</b><br>
