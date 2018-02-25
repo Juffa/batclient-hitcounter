@@ -20,6 +20,8 @@ unarmeds = new int [26];
 bashes   = new int [26];
 pierces  = new int [26];
 shields  = new int [26];
+tigerMa  = new int [26];
+monkMa	 = new int [26];
 
 int missed=0;
 int dodged=0;
@@ -30,6 +32,8 @@ unarmedsCompare = new int [26];
 bashesCompare   = new int [26];
 piercesCompare  = new int [26];
 shieldsCompare  = new int [26];
+tigerMaCompare  = new int [26];
+monkMaCompare	= new int [26];
 
 int missedCompare=0;
 int dodgedCompare=0;
@@ -42,6 +46,8 @@ String[] unarmedMessages={"pat","spank","smack","bitchslap","lightly strike","bo
 String[] bashMessages   ={"lightly jostle","jostle","butt","bump","thump","stroke","thrust","jab","bash","strike","sock","cuff","knock","flail","whack","beat","smash","cruelly beat","badly smash","horribly thrust","savagely sock","savagely strike","REALLY WHACK","BRUTALLY BEAT","CRUELLY CUFF","BARBARICALLY BASH"};
 String[] pierceMessages ={"barely scratch","scratch","slightly pierce","pierce","puncture","sink","bore","crater","cavitate","shaft","gorge","really poke","riddle","dig into","dig through","chasm","drill","powerfully perforate","powerfully pierce","cruelly crater","savagely shaft","uncontrollably dig through","REALLY DRILL","CRUELLY RIDDLE","BRUTALLY BORE","BARBARICALLY PIERCE"};
 String[] shieldMessages ={"lightly shove","lightly batter","lightly push","lightly bash","lightly slam","lightly crush","heavily shove","batter","heavily push","heavily bash","slam","crush","really shove","really batter","really push","really bash","really slam","really crush","cruelly shove","cruelly batter","cruelly push","cruelly bash","REALLY SLAM","REALLY CRUSH","BRUTALLY CRUSH","BARBARICALLY SLAM"};
+String[] tigerMessages  ={"tickle","step on","grasp","toe-kick","knee","elbow","elbow-smash","stomp-kick","foot-step","twist and throw","finger-jab","joint-twist","back kick","spinning back kick","phoenix-eye punch","spinning backfist","jump up and side-kick","dragon-claw","feint high and then cruelly groin-rip","snake-strike, blocking the chi of","pummel, with dozens of chain punches,","leap, spin, and swallow-tail KICK","DEVASTATE, with a thrusting blow,","BRUTALLY THROAT RIP","SAVAGELY BELLY SMASH","CRUELLY TIGER STRIKE"};
+String[] monkMessages   ={"slap","push","shove","grab","punch","foot-sweep","evade, and then reverse","grab and shoulder-toss","snap-kick","joint-lock","unbalance, then expertly throw","stop-kick","reverse spin-kick","pull, then cruelly throat chop","trip and head-stomp","savagely hammerfist","craftily feint and then grab and flip","fluidly evade, duck under and spine-chop","nerve-grab, causing unendurable pain to","perform a lightning fast punch and throw combo on","grab, headbutt, then NECK-SNAP","masterfully evade then JUMP-KICK","DEVASTATINGLY HEAD-THROW","HORRIBLY DOUBLE-KICK","MASTERFULLY POWER-THROW","DEVASTATINGLY SNAP-KICK"};
 
 //Add more hit type counters later?
 
@@ -162,7 +168,6 @@ void reportHits(){
 				}else{
 					hitPercentage=(int)Math.round((float)slashes[i]*100/countAllHits());
 				}
-				//clientGUI.printText("general",""+slashes[i]+spaceCounter(slashes[i],3)+"("+Math.round((float)slashes[i]*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)slashes[i]*100/countAllHits())),3)+""+slashMessages[i]+"\n");
 			    clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],longestMessage())+" "+slashes[i]+spaceCounter(slashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
@@ -177,7 +182,6 @@ void reportHits(){
 				}else{
 					hitPercentage=(int)Math.round((float)pierces[i]*100/countAllHits());
 				}
-				//clientGUI.printText("general",""+pierces[i]+" ("+Math.round((float)pierces[i]*100/countAllHits())+"%) "+pierceMessages[i]+"\n");
 				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],longestMessage())+" "+pierces[i]+spaceCounter(pierces[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
@@ -192,7 +196,6 @@ void reportHits(){
 				}else{
 					hitPercentage=(int)Math.round((float)unarmeds[i]*100/countAllHits());
 				}
-				//clientGUI.printText("general",""+unarmeds[i]+" ("+Math.round((float)unarmeds[i]*100/countAllHits())+"%) "+unarmedMessages[i]+"\n");
 				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],longestMessage())+" "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
@@ -207,7 +210,6 @@ void reportHits(){
 				}else{
 					hitPercentage=(int)Math.round((float)shields[i]*100/countAllHits());
 				}
-				//clientGUI.printText("general",""+shields[i]+" ("+Math.round((float)shields[i]*100/countAllHits())+"%) "+shieldMessages[i]+"\n");
 				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestMessage())+" "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
@@ -222,11 +224,40 @@ void reportHits(){
 				}else{
 					hitPercentage=(int)Math.round((float)bashes[i]*100/countAllHits());
 				}
-				//clientGUI.printText("general",""+bashes[i]+" ("+Math.round((float)bashes[i]*100/countAllHits())+"%) "+bashMessages[i]+"\n");
 				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],longestMessage())+" "+bashes[i]+spaceCounter(bashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
 	}else{}
+	if(countHits(tigerMa)>0){
+		clientGUI.printText("general","\nTiger martial arts attacks:\n");
+		for(int i=0;i<tigerMa.length;i++){
+			if(tigerMa[i]>0){
+				int hitPercentage=0;
+				if(tigerMa[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)tigerMa[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],longestMessage())+" "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	if(countHits(monkMa)>0){
+		clientGUI.printText("general","\nMonk martial arts attacks:\n");
+		for(int i=0;i<monkMa.length;i++){
+			if(monkMa[i]>0){
+				int hitPercentage=0;
+				if(monkMa[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)monkMa[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestMessage())+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	
+	
 	if((dodged+parried+missed)>0){
 		clientGUI.printText("general","\nMissed attacks:\n");
 		if(missed>0){
@@ -359,6 +390,49 @@ void reportCompare(){
 			}
 		}
 	}else{}
+	if(countHits(tigerMaCompare)>0){
+	clientGUI.printText("general","\nTiger martial arts attacks:\n");
+		for(int i=0;i<tigerMaCompare.length;i++){
+			if(tigerMaCompare[i]>0||tigerMa[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(tigerMa[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)tigerMa[i]*100/countAllHits());
+				}
+				
+				if(tigerMaCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)tigerMaCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],longestCompareMessage())+" "+tigerMaCompare[i]+spaceCounter(tigerMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}
+	if(countHits(monkMaCompare)>0){
+	clientGUI.printText("general","\nMonk martial arts attacks:\n");
+		for(int i=0;i<monkMaCompare.length;i++){
+			if(monkMaCompare[i]>0||monkMa[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(monkMa[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)monkMa[i]*100/countAllHits());
+				}
+				
+				if(monkMaCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)monkMaCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestCompareMessage())+" "+monkMaCompare[i]+spaceCounter(monkMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}
+	
 	if((dodgedCompare+parriedCompare+missedCompare)>0){
 		clientGUI.printText("general","\nmissed attacks:\n");
 		if(missedCompare>0||missed>0){
@@ -458,6 +532,16 @@ int longestMessage(){
 			longestLength=shieldMessages[i].length();
 		}
 	}
+	for(int i=0;i<tigerMa.length;i++){
+		if(tigerMa[i]>0&&tigerMessages[i].length()>longestLength){
+			longestLength=tigerMessages[i].length();
+		}
+	}
+	for(int i=0;i<monkMa.length;i++){
+		if(monkMa[i]>0&&monkMessages[i].length()>longestLength){
+			longestLength=monkMessages[i].length();
+		}
+	}
 	return longestLength;
 }
 
@@ -491,6 +575,16 @@ int longestCompareMessage(){
 			longestLength=shieldMessages[i].length();
 		}
 	}
+	for(int i=0;i<tigerMa.length;i++){
+		if((tigerMa[i]>0||tigerMaCompare[i]>0)&&tigerMessages[i].length()>longestLength){
+			longestLength=tigerMessages[i].length();
+		}
+	}
+	for(int i=0;i<monkMa.length;i++){
+		if((monkMa[i]>0||monkMaCompare[i]>0)&&monkMessages[i].length()>longestLength){
+			longestLength=monkMessages[i].length();
+		}
+	}
 	return longestLength;
 }
 
@@ -503,6 +597,8 @@ void resetHits(){
 		bashes[i]=0;
 		pierces[i]=0;
 		shields[i]=0;
+		tigerMa[i]=0;
+		monkMa[i]=0;
 	}
 	missed=0;
 	dodged=0;
@@ -520,33 +616,14 @@ int countHits(int[] hitit){
 }
 
 int countAllHits(){
-	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+dodged+missed+parried);
+	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+countHits(tigerMa)+countHits(monkMa)+dodged+missed+parried);
 } 
 
 int countAllCompareHits(){
-	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+dodgedCompare+missedCompare+parriedCompare);
+	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+countHits(tigerMaCompare)+countHits(monkMaCompare)+dodgedCompare+missedCompare+parriedCompare);
 } 
 
-void addHit(){
-	//clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
-	for(int i=0;i<slashes.length;i++){
-		if(argument.equals(slashMessages[i])){
-			slashes[i]++;
-		}
-		if(argument.equals(unarmedMessages[i])){
-			unarmeds[i]++;
-		}
-		if(argument.equals(bashMessages[i])){
-			bashes[i]++;
-		}
-		if(argument.equals(pierceMessages[i])){
-			pierces[i]++;
-		}
-		if(argument.equals(shieldMessages[i])){
-			shields[i]++;
-		}
-	}
-}
+
 
 void copyCompare(){
 	
@@ -555,6 +632,8 @@ void copyCompare(){
 	bashesCompare=Arrays.copyOf(bashes, bashes.length);
 	piercesCompare=Arrays.copyOf(pierces, pierces.length);
 	shieldsCompare=Arrays.copyOf(shields, shields.length);
+	monkMaCompare=Arrays.copyOf(monkMa, monkMa.length);
+	tigerMaCompare=Arrays.copyOf(tigerMa, tigerMa.length);
 	missedCompare=missed;
 	dodgedCompare=dodged;
 	parriedCompare=parried;
@@ -583,6 +662,34 @@ String spaceCounterString(String name,int space){
 	return result;
 }
 
+
+void addHit(){
+	clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
+	for(int i=0;i<slashes.length;i++){
+		if(argument.equals(slashMessages[i])){
+			slashes[i]++;
+		}
+		if(argument.equals(unarmedMessages[i])){
+			unarmeds[i]++;
+		}
+		if(argument.equals(bashMessages[i])){
+			bashes[i]++;
+		}
+		if(argument.equals(pierceMessages[i])){
+			pierces[i]++;
+		}
+		if(argument.equals(shieldMessages[i])){
+			shields[i]++;
+		}
+		if(argument.equals(tigerMessages[i])){
+			tigerMa[i]++;
+		}
+		if(argument.equals(monkMessages[i])){
+			monkMa[i]++;
+		}
+	}
+}
+
 void addMiss(){
 	missed++;
 }
@@ -599,8 +706,8 @@ void addParriesMyHit(){
 
 void triggers(){
 	triggerManager.newTrigger("addHit",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold) ?([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
-	 "$"+SCRIPT_NAME+".addHit %3");//, false, true, false, new Color[]{white}, Font.PLAIN);	
+"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) (([A-Z].*)+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
+	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, new Color[]{white}, Font.PLAIN);	
 	
 	triggerManager.newTrigger("addMiss",
 	 "^You miss",
@@ -615,7 +722,10 @@ void triggers(){
 	 "$"+SCRIPT_NAME+".addParriesMyHit");
 }
 
+//"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold) ?([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
+
 //for debug purposes
+/*
 void triggers2(){
 	triggerManager.newTrigger("addBarelyGraze",
 	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
@@ -626,5 +736,5 @@ void triggers2(){
 	//[^\;]
 	
 }
-
+*/
 
