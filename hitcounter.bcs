@@ -58,6 +58,11 @@ run(){
 				clientGUI.printText("general","OK. Hits copied.\n");
 				break;
 				
+			case "save":
+				copyCompare();
+				clientGUI.printText("general","OK. Hits copied.\n");
+				break;				
+				
 			case "s":
 				copyCompare();
 				clientGUI.printText("general","OK. Hits copied.\n");
@@ -75,6 +80,11 @@ run(){
 				resetHits();
 				clientGUI.printText("general","OK. Resetting hit counters.\n");
 				break;
+				
+			case "remove":
+				resetHits();
+				clientGUI.printText("general","OK. Resetting hit counters.\n");
+				break;	
 				
 			case "r":
 				resetHits();
@@ -99,6 +109,14 @@ run(){
 				
 			case "pierce":
 				reportAllHitsType("pierce");
+				break;
+				
+			case "tiger":
+				reportAllHitsType("tiger");
+				break;
+				
+			case "monk":
+				reportAllHitsType("monk");
 				break;
 				
 			default:
@@ -158,6 +176,24 @@ void reportAllHitsType(String type){
 		if(countHits(pierces)>0){
 			for(int i=0;i<pierces.length;i++){
 				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],20)+" "+pierces[i]+spaceCounter(pierces[i],3)+"("+(int)Math.round((float)pierces[i]*100/countHits(pierces))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("tiger")){
+		if(countHits(tigerMa)>0){
+			for(int i=0;i<tigerMa.length;i++){
+				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],20)+" "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+(int)Math.round((float)tigerMa[i]*100/countHits(tigerMa))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("monk")){
+		if(countHits(monkMa)>0){
+			for(int i=0;i<monkMa.length;i++){
+				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],20)+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+(int)Math.round((float)monkMa[i]*100/countHits(monkMa))+"%)\n");
 			}
 		}
 		else{
