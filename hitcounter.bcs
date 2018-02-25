@@ -1,8 +1,7 @@
 /*
-Simple slash type message hit counter by Jkk.
-I may extend it to cover other hit types also
-Tell me if something is horribly wrong... 
-Thanks to Kohothegreat for advicing with the regexp.
+Not-so-simple (anymore) hit message counter by Jkk V 1.0?
+Tell me if something is horribly wrong... or catches wrong lines as hits or doesn't catch all hits
+Thanks to Kohothegreat for advice with the regexp.
 */
 
 SCRIPT_NAME="hits";
@@ -22,11 +21,11 @@ pierces  = new int [26];
 shields  = new int [26];
 tigerMa  = new int [26];
 monkMa	 = new int [26];
-
 int missed=0;
 int dodged=0;
 int parried=0;
 
+//Message counter arrays for comparing against stored hits
 slashesCompare  = new int [26];
 unarmedsCompare = new int [26];
 bashesCompare   = new int [26];
@@ -49,13 +48,34 @@ String[] shieldMessages ={"lightly shove","lightly batter","lightly push","light
 String[] tigerMessages  ={"tickle","step on","grasp","toe-kick","knee","elbow","elbow-smash","stomp-kick","foot-step","twist and throw","finger-jab","joint-twist","back kick","spinning back kick","phoenix-eye punch","spinning backfist","jump up and side-kick","dragon-claw","feint high and then cruelly groin-rip","snake-strike, blocking the chi of","pummel, with dozens of chain punches,","leap, spin, and swallow-tail KICK","DEVASTATE, with a thrusting blow,","BRUTALLY THROAT RIP","SAVAGELY BELLY SMASH","CRUELLY TIGER STRIKE"};
 String[] monkMessages   ={"slap","push","shove","grab","punch","foot-sweep","evade, and then reverse","grab and shoulder-toss","snap-kick","joint-lock","unbalance, then expertly throw","stop-kick","reverse spin-kick","pull, then cruelly throat chop","trip and head-stomp","savagely hammerfist","craftily feint and then grab and flip","fluidly evade, duck under and spine-chop","nerve-grab, causing unendurable pain to","perform a lightning fast punch and throw combo on","grab, headbutt, then NECK-SNAP","masterfully evade then JUMP-KICK","DEVASTATINGLY HEAD-THROW","HORRIBLY DOUBLE-KICK","MASTERFULLY POWER-THROW","DEVASTATINGLY SNAP-KICK"};
 
-//Add more hit type counters later?
-
-// run() happens when you type $hits in the client.
+// run() happens when you type $hits in the client. Catches the argument after the $hits
 run(){
 	if(argument !=null){
 		switch(argument){
+			case "store":
+				copyCompare();
+				clientGUI.printText("general","OK. Hits copied.\n");
+				break;
+				
+			case "s":
+				copyCompare();
+				clientGUI.printText("general","OK. Hits copied.\n");
+				break;
+				
+			case "compare":
+				reportCompare();
+				break;
+				
+			case "c":
+				reportCompare();
+				break;
+			
 			case "reset":
+				resetHits();
+				clientGUI.printText("general","OK. Resetting hit counters.\n");
+				break;
+				
+			case "r":
 				resetHits();
 				clientGUI.printText("general","OK. Resetting hit counters.\n");
 				break;
@@ -80,16 +100,8 @@ run(){
 				reportAllHitsType("pierce");
 				break;
 				
-			case "store":
-				copyCompare();
-				break;
-				
-			case "compare":
-				reportCompare();
-				break;
-				
 			default:
-				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits reset\n");
+				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits (r)eset\n$hits (s)tore\n$hits (c)ompare\n");
 		}
 	}else{
 		reportHits();
@@ -98,7 +110,6 @@ run(){
 
 void bootup(){
 	triggers();
-	//triggers2();
 }
 
 
@@ -108,7 +119,6 @@ void reportAllHitsType(String type){
 	if(type.equals("slash")){
 		if(countHits(slashes)>0){
 			for(int i=0;i<slashes.length;i++){
-				//clientGUI.printText("general",""+slashes[i]+" ("+Math.round((float)slashes[i]*100/countHits(slashes))+"%) "+slashMessages[i]+"\n");
 				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],20)+" "+slashes[i]+spaceCounter(slashes[i],3)+"("+(int)Math.round((float)slashes[i]*100/countHits(slashes))+"%)\n");
 			}
 		}
@@ -157,9 +167,10 @@ void reportAllHitsType(String type){
 
 //Reports only the actual hits done but from all types if there are any
 void reportHits(){
-			
+	//Check if any slash hits have been done, if not, print nothing (else{} at the end)	
 	if(countHits(slashes)>0){
 		clientGUI.printText("general","\nSlash attacks:\n");
+		//Loop goes through the whole list of hit messages (always length is always 26 but I still count it)
 		for(int i=0;i<slashes.length;i++){
 			if(slashes[i]>0){
 				int hitPercentage=0;
@@ -261,16 +272,12 @@ void reportHits(){
 	if((dodged+parried+missed)>0){
 		clientGUI.printText("general","\nMissed attacks:\n");
 		if(missed>0){
-			//clientGUI.printText("general",""+missed+spaceCounter(missed,3)+"("+Math.round((float)missed*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)missed*100/countAllHits())),3)+"missed\n");
 			clientGUI.printText("general","missed"+spaceCounterString("missed",longestMessage())+" "+missed+spaceCounter(missed,3)+"("+Math.round((float)missed*100/countAllHits())+"%)\n");
-		 
 		}
 		if(dodged>0){
-			//clientGUI.printText("general",""+dodged+spaceCounter(dodged,3)+"("+Math.round((float)dodged*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)dodged*100/countAllHits())),3)+"dodged\n");
 			clientGUI.printText("general","dodged"+spaceCounterString("dodged",longestMessage())+" "+dodged+spaceCounter(dodged,3)+"("+Math.round((float)dodged*100/countAllHits())+"%)\n");
 		}
 		if(parried>0){
-			//clientGUI.printText("general",""+parried+spaceCounter(parried,3)+"("+Math.round((float)parried*100/countAllHits())+"%)"+spaceCounter((int)(Math.round((float)parried*100/countAllHits())),3)+"parried\n");
 			clientGUI.printText("general","parried"+spaceCounterString("parried",longestMessage())+" "+parried+spaceCounter(parried,3)+"("+Math.round((float)parried*100/countAllHits())+"%)\n");
 		}			
 	}
@@ -283,10 +290,14 @@ void reportHits(){
 
 //Reports the current hits and compare hits
 void reportCompare(){
+	//Check if any slash hits have been stored, if not, print nothing (else{} at the end)
 	if(countHits(slashesCompare)>0){
 		clientGUI.printText("general","\nHit"+spaceCounterString("",longestCompareMessage()-1)+"Stored         Current  Diff"+"\n");
 		clientGUI.printText("general","\nSlash attacks:\n");
+		
+		//Loop goes through the whole list of compare messages (always length is always 26 but I still count it)
 		for(int i=0;i<slashesCompare.length;i++){
+			//have to check if there are any hits so we print 0 instead of trying to divide by zero
 			if(slashesCompare[i]>0||slashes[i]>0){
 				int hitPercentage=0;
 				int comparePercentage=0;
@@ -301,8 +312,8 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)slashesCompare[i]*100/countAllCompareHits());
 				}
-				//working//clientGUI.printText("general",""+slashes[i]+spaceCounter(slashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+" <-->  "+slashesCompare[i]+spaceCounter(slashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+""+slashMessages[i]+spaceCounterString(slashMessages[i],22)+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
-				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],longestCompareMessage())+" "+slashesCompare[i]+spaceCounter(slashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+slashes[i]+spaceCounter(slashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				//Prints a line with the stored hit amounts and the current hit amounts for the compare, repeated the amount the for loop runs
+				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],longestCompareMessage())+" "+slashesCompare[i]+spaceCounter(slashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+slashes[i]+spaceCounter(slashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -323,7 +334,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)piercesCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],longestCompareMessage())+" "+piercesCompare[i]+spaceCounter(piercesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+pierces[i]+spaceCounter(pierces[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],longestCompareMessage())+" "+piercesCompare[i]+spaceCounter(piercesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+pierces[i]+spaceCounter(pierces[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -344,7 +355,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)unarmedsCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],longestCompareMessage())+" "+unarmedCompare[i]+spaceCounter(unarmedCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],longestCompareMessage())+" "+unarmedCompare[i]+spaceCounter(unarmedCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -365,7 +376,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)shieldsCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestCompareMessage())+" "+shieldCompare[i]+spaceCounter(shieldCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestCompareMessage())+" "+shieldCompare[i]+spaceCounter(shieldCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -386,7 +397,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)bashesCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],longestCompareMessage())+" "+bashesCompare[i]+spaceCounter(bashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+bashes[i]+spaceCounter(bashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],longestCompareMessage())+" "+bashesCompare[i]+spaceCounter(bashesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+bashes[i]+spaceCounter(bashes[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -407,7 +418,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)tigerMaCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],longestCompareMessage())+" "+tigerMaCompare[i]+spaceCounter(tigerMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],longestCompareMessage())+" "+tigerMaCompare[i]+spaceCounter(tigerMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -428,7 +439,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)monkMaCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestCompareMessage())+" "+monkMaCompare[i]+spaceCounter(monkMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestCompareMessage())+" "+monkMaCompare[i]+spaceCounter(monkMaCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
@@ -448,7 +459,7 @@ void reportCompare(){
 			}else{
 				comparePercentage=Math.round((float)missedCompare*100/countAllCompareHits());
 			}			
-			clientGUI.printText("general","missed"+spaceCounterString("missed",longestMessage())+" "+missedCompare+spaceCounter(missedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+missed+spaceCounter(missed,3)+"("+missedPercentage+"%)"+spaceCounter(missedPercentage,3)+""+checkPositive(missedPercentage-comparePercentage)+(missedPercentage-comparePercentage)+"%\n");
+			clientGUI.printText("general","missed"+spaceCounterString("missed",longestMessage())+" "+missedCompare+spaceCounter(missedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+missed+spaceCounter(missed,3)+"("+missedPercentage+"%)"+spaceCounter(missedPercentage,3)+""+checkPositive(missedPercentage-comparePercentage)+(missedPercentage-comparePercentage)+"%\n");
 		}
 		
 		
@@ -466,7 +477,7 @@ void reportCompare(){
 			}else{
 				comparePercentage=Math.round((float)dodgedCompare*100/countAllCompareHits());
 			}			
-			clientGUI.printText("general","dodged"+spaceCounterString("dodged",longestMessage())+" "+dodgedCompare+spaceCounter(dodgedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+dodged+spaceCounter(dodged,3)+"("+dodgedPercentage+"%)"+spaceCounter(dodgedPercentage,3)+""+checkPositive(dodgedPercentage-comparePercentage)+(dodgedPercentage-comparePercentage)+"%\n");
+			clientGUI.printText("general","dodged"+spaceCounterString("dodged",longestMessage())+" "+dodgedCompare+spaceCounter(dodgedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+dodged+spaceCounter(dodged,3)+"("+dodgedPercentage+"%)"+spaceCounter(dodgedPercentage,3)+""+checkPositive(dodgedPercentage-comparePercentage)+(dodgedPercentage-comparePercentage)+"%\n");
 		}
 		
 		
@@ -484,7 +495,7 @@ void reportCompare(){
 			}else{
 				comparePercentage=Math.round((float)parriedCompare*100/countAllCompareHits());
 			}			
-			clientGUI.printText("general","parried"+spaceCounterString("parried",longestMessage())+" "+parriedCompare+spaceCounter(parriedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" <-->  "+parried+spaceCounter(parried,3)+"("+parriedPercentage+"%)"+spaceCounter(parriedPercentage,3)+""+checkPositive(parriedPercentage-comparePercentage)+(parriedPercentage-comparePercentage)+"%\n");
+			clientGUI.printText("general","parried"+spaceCounterString("parried",longestMessage())+" "+parriedCompare+spaceCounter(parriedCompare,3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+parried+spaceCounter(parried,3)+"("+parriedPercentage+"%)"+spaceCounter(parriedPercentage,3)+""+checkPositive(parriedPercentage-comparePercentage)+(parriedPercentage-comparePercentage)+"%\n");
 		}			
 	}
 	if(countAllCompareHits()==0){
@@ -493,6 +504,7 @@ void reportCompare(){
 	clientGUI.printText("general","\n");
 }
 
+//Returns a "+" of a integer is positive
 String checkPositive(int number){
 	if(number>=0){
 		return("+");
@@ -501,7 +513,7 @@ String checkPositive(int number){
 	}
 }
 
-
+//Measures the longest hit message that actually have hits
 int longestMessage(){
 	int longestLength=0;
 	if(missed>0||dodged>0){longestLength=7;}
@@ -545,6 +557,7 @@ int longestMessage(){
 	return longestLength;
 }
 
+//Measures the longest hit message that actually have hits in the compare variables
 int longestCompareMessage(){
 	int longestLength=0;
 	if(missed>0||dodged>0){longestLength=7;}
@@ -589,7 +602,7 @@ int longestCompareMessage(){
 }
 
 
-//A module that resets the hits.
+//A module that resets the hits. (doesn't reset the compare hits)
 void resetHits(){
 	for(int i=0;i<slashes.length;i++){
 		slashes[i]=0;
@@ -606,7 +619,7 @@ void resetHits(){
 	
 }
 
-//A helper module that sums all the hits
+//Counts the hits of a single attack type
 int countHits(int[] hitit){
 	int total=0;
 	for(int i=0;i<hitit.length;i++){
@@ -615,18 +628,19 @@ int countHits(int[] hitit){
 	return(total);
 }
 
+//counts the hits in variables and returns the sum
 int countAllHits(){
 	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+countHits(tigerMa)+countHits(monkMa)+dodged+missed+parried);
 } 
 
+// Counts the hits in compare variables and returns the sum
 int countAllCompareHits(){
 	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+countHits(tigerMaCompare)+countHits(monkMaCompare)+dodgedCompare+missedCompare+parriedCompare);
 } 
 
 
-
+//Copies the current message amounts to other set of variables so we can compare them later
 void copyCompare(){
-	
 	slashesCompare=Arrays.copyOf(slashes, slashes.length);
 	unarmedsCompare=Arrays.copyOf(unarmeds, unarmeds.length);
 	bashesCompare=Arrays.copyOf(bashes, bashes.length);
@@ -639,21 +653,16 @@ void copyCompare(){
 	parriedCompare=parried;
 }
 
-
-
-
-
-
-
-
-//outputs a string of empty spaces m=the wanted size, n=amount already taken by numbers
+//outputs a string of empty spaces, accepts an int n which is a number and int m which is the wanted amount of spaces 
 String spaceCounter(int n,int m){
 	String result="";
+	//Convert the int to string so we can measure length
 	for(int i=Integer.toString(n).length();i<=m-1;i++){
 		result+=" ";
 	}
 	return result;
 }
+//outputs a string of empty spaces, accepts a string and int
 String spaceCounterString(String name,int space){
 	String result="";
 	for(int i=0;i<space-name.length();i++){
@@ -662,9 +671,9 @@ String spaceCounterString(String name,int space){
 	return result;
 }
 
-
+//Add a hit if the argumend passed from the trigger matches any hit message in any of the message arrays
 void addHit(){
-	clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
+	//clientGUI.printText("general","Argument is: "+argument+"\n"); //for debug
 	for(int i=0;i<slashes.length;i++){
 		if(argument.equals(slashMessages[i])){
 			slashes[i]++;
@@ -703,11 +712,11 @@ void addParriesMyHit(){
 }
 
 
-
 void triggers(){
+//regexp explained: match these two words that may or may not be here. Match You and you. Ignore any lines that have any of these after You or you. Match hit message that is any combination of lowercase or CAPS words. Dont match delim, match a word that starts with Caps and any other word after it until match to any of these (frazzling ripping smashing etc). Dont match him|her|it cry out in pain! after it	
 	triggerManager.newTrigger("addHit",
-"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) (([A-Z].*)+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
-	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, new Color[]{white}, Font.PLAIN);	
+	"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put|wear|remove|start) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) ([[^;][A-Z][a-z- ]+ -,]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
+	 "$"+SCRIPT_NAME+".addHit %3");//, false, true, false, new Color[]{white}, Font.PLAIN);	
 	
 	triggerManager.newTrigger("addMiss",
 	 "^You miss",
@@ -722,19 +731,4 @@ void triggers(){
 	 "$"+SCRIPT_NAME+".addParriesMyHit");
 }
 
-//"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold) ?([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
-
-//for debug purposes
-/*
-void triggers2(){
-	triggerManager.newTrigger("addBarelyGraze",
-	 "^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou ([a-z -,]+|[A-Z -,]+) ([A-Za-z -]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing)",
-	 "$"+SCRIPT_NAME+".addHit %3", false, true, false, 
-	 new Color[]{red}, Font.PLAIN);	
-	//([a-z -]+|[A-Z -]+) (?!your)
-	//([A-Za-z -]+) 
-	//[^\;]
-	
-}
-*/
 
