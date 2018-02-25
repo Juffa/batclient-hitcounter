@@ -18,6 +18,8 @@ You have to have correct battle settings for the trigger to work:<br>
 <b>$hits bash</b> - View all bash type attacks.<br>
 <b>$hits shield</b> - View all shield attacks.<br>
 <b>$hits unarmed</b> - View all unarmed attacks.<br>
+<b>$hits monk</b> - View all monk martial arts attacks.<br>
+<b>$hits tiger</b> - View all tiger martial arts attacks.<br>
 
 
 <b>'$hits' output looks like this:</b><br>

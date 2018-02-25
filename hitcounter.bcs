@@ -759,7 +759,7 @@ void triggers(){
 	triggerManager.newTrigger("addMiss",
 	 "^You miss (?!.*with.*)",
 	 "$"+SCRIPT_NAME+".addMiss");
-	 //with=bladed fury miss
+	 //"with"=bladed fury miss
 	 
 	triggerManager.newTrigger("addDodgesMyHit",
 	 "^[A-Za-z -]+ successfully dodges your futile",
