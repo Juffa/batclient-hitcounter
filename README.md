@@ -25,12 +25,12 @@ You have to have correct battle settings for the trigger to work:<br>
 <b>'$hits' output looks like this:</b><br>
 
 Slash attacks:<br>
-lightly cut    1  (1%)<br>  
+lightly cut    1  (1%)<br>
 cut            65 (47%)<br>
-tear           35 (26%)<br> 
+tear           35 (26%)<br>
 incise         1  (1%)<br>
-incisively cut 1  (1%)<br>  
-cruelly tatter 2  (1%)<br>  
+incisively cut 1  (1%)<br>
+cruelly tatter 2  (1%)<br>
 
 Missed attacks:<br>
 missed         22 (16%)<br>
