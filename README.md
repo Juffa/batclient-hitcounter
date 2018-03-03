@@ -11,7 +11,7 @@ You have to have correct battle settings for the trigger to work:<br>
 
 <b>$hits</b> - View your hits.<br>
 <b>$hits (r)eset</b> - Reset your hit counter. Restarting the client or reloading the scripts also resets the counter.<br>
-<b>$hits (s)tore</b> - Store current hits so you can compare them later. Does NOT store hits over resets.<br>
+<b>$hits (s)tore</b> - Store current hits so you can compare them later. Does NOT store hits over client reboots or reloading scripts.<br>
 <b>$hits (c)ompare</b> - Compare current and stored hits.<br>
 <b>$hits slash</b> - View all slash type attacks.<br>
 <b>$hits pierce</b> - View all pierce type attacks.<br>
