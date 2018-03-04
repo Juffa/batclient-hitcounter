@@ -431,7 +431,7 @@ void reportCompare(){
 				}else{
 					comparePercentage=(int)Math.round((float)shieldsCompare[i]*100/countAllCompareHits());
 				}
-				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestCompareMessage())+" "+shieldCompare[i]+spaceCounter(shieldCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestCompareMessage())+" "+shieldsCompare[i]+spaceCounter(shieldsCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+shields[i]+spaceCounter(shields[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
 			}
 		}
 	}else{}
