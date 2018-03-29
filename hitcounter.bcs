@@ -124,7 +124,7 @@ run(){
 				break;
 				
 			default:
-				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits (r)eset\n$hits (s)tore\n$hits (c)ompare\n");
+				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits monk\n$hits tiger\n$hits (r)eset\n$hits (s)tore\n$hits (c)ompare\n");
 		}
 	}else{
 		reportHits();
