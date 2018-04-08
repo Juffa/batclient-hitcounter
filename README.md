@@ -5,6 +5,7 @@ Thanks to Kohothegreat for advice with regexp<br>
 Tell me if something bugs or it misses hits or records something that it should not<br> 
 
 <b>Instructions</b><br>
+Click the 'Clone or download' -button in github page, or click the hitcounter.bcs, select Raw, and THEN save as...<br>
 Copy hitcounter.bcs into your batclient\scripts folder, type /scriptreload and /scriptbootup in batclient or restart the client.<br>
 You have to have correct battle settings for the trigger to work:<br> 
 'battle listen all 3' or 'battle listen yourname 3'. Replace yourname with your name.<br>
