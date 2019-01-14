@@ -378,7 +378,7 @@ void reportCompare(){
 			if(piercesCompare[i]>0||pierces[i]>0){
 				int hitPercentage=0;
 				int comparePercentage=0;
-				if(slashes[i]==0){
+				if(pierces[i]==0){
 					hitPercentage=0;
 				}else{
 					hitPercentage=(int)Math.round((float)pierces[i]*100/countAllHits());
@@ -786,7 +786,7 @@ void addParriesMyHit(){
 void triggers(){
 //regexp explained: match these two words that may or may not be here. Match You and you. Ignore any lines that have any of these after You or you. Match hit message that is any combination of lowercase or CAPS words. Dont match delim, match a word that starts with Caps and any other word after it until match to any of these (frazzling ripping smashing etc). Dont match him|her|it cry out in pain! after it	
 	triggerManager.newTrigger("addHit",
-	"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put|wear|remove|start) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) ([[^;][A-Z][a-z- ]+ -,]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing) (?!him|her|it cry out in pain!)",
+	"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put|wear|remove|start) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) ([[^;][A-Z][a-z- ]+ -,]+) (frazzling|ripping|smashing|creating|producing|crushing|sparking|snapping|causing|inducing|making|dislocating|forcing|slicing|mutilating|puncturing|resulting) (?!him|her|it|his|its (cry out in pain!)|(shoulder!))",
 	"$"+SCRIPT_NAME+".addHit %3");
 	
 	triggerManager.newTrigger("addMiss",
