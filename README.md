@@ -1,8 +1,10 @@
-# batclient-hitcounter V1.0? By Jkk<br>
+# batclient-hitcounter V1.1 By Jkk<br>
 A hit message counter for batclient.<br>
 Counts and reports your attacks.<br>
 Thanks to Kohothegreat for advice with regexp<br>
 Tell me if something bugs or it misses hits or records something that it should not<br> 
+
+New: added more hit types
 
 <b>Instructions</b><br>
 Click the 'Clone or download' -button in github page, or click the hitcounter.bcs, select Raw, and THEN save as...<br>
@@ -21,7 +23,10 @@ You have to have correct battle settings for the trigger to work:<br>
 <b>$hits unarmed</b> - View all unarmed attacks.<br>
 <b>$hits monk</b> - View all monk martial arts attacks.<br>
 <b>$hits tiger</b> - View all tiger martial arts attacks.<br>
-
+<b>$hits whip</b> - View all whip attacks.<br>
+<b>$hits bite</b> - View all bite attacks.<br>
+<b>$hits claw</b> - View all claw attacks.<br>
+<b>$hits breath</b> - View all breath attacks.<br>
 
 <b>'$hits' output looks like this:</b><br>
 

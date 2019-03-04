@@ -22,6 +22,14 @@ pierces  = new int [26];
 shields  = new int [26];
 tigerMa  = new int [26];
 monkMa	 = new int [26];
+whips	 = new int [26];
+bites	 = new int [26];
+claws	 = new int [26];
+breaths  = new int [26];
+
+
+
+
 int missed=0;
 int dodged=0;
 int parried=0;
@@ -34,6 +42,11 @@ piercesCompare  = new int [26];
 shieldsCompare  = new int [26];
 tigerMaCompare  = new int [26];
 monkMaCompare	= new int [26];
+whipsCompare	= new int [26];
+bitesCompare	= new int [26];
+clawsCompare	= new int [26];
+breathsCompare	= new int [26];
+
 int missedCompare=0;
 int dodgedCompare=0;
 int parriedCompare=0;
@@ -48,6 +61,10 @@ String[] pierceMessages ={"barely scratch","scratch","slightly pierce","pierce",
 String[] shieldMessages ={"lightly shove","lightly batter","lightly push","lightly bash","lightly slam","lightly crush","heavily shove","batter","heavily push","heavily bash","slam","crush","really shove","really batter","really push","really bash","really slam","really crush","cruelly shove","cruelly batter","cruelly push","cruelly bash","REALLY SLAM","REALLY CRUSH","BRUTALLY CRUSH","BARBARICALLY SLAM"};
 String[] tigerMessages  ={"tickle","step on","grasp","toe-kick","knee","elbow","elbow-smash","stomp-kick","foot-step","twist and throw","finger-jab","joint-twist","back kick","spinning back kick","phoenix-eye punch","spinning backfist","jump up and side-kick","dragon-claw","feint high and then cruelly groin-rip","snake-strike, blocking the chi of","pummel, with dozens of chain punches,","leap, spin, and swallow-tail KICK","DEVASTATE, with a thrusting blow,","BRUTALLY THROAT RIP","SAVAGELY BELLY SMASH","CRUELLY TIGER STRIKE"};
 String[] monkMessages   ={"slap","push","shove","grab","punch","foot-sweep","evade, and then reverse","grab and shoulder-toss","snap-kick","joint-lock","unbalance, then expertly throw","stop-kick","reverse spin-kick","pull, then cruelly throat chop","trip and head-stomp","savagely hammerfist","craftily feint and then grab and flip","fluidly evade, duck under and spine-chop","nerve-grab, causing unendurable pain to","perform a lightning fast punch and throw combo on","grab, headbutt, then NECK-SNAP","masterfully evade then JUMP-KICK","DEVASTATINGLY HEAD-THROW","HORRIBLY DOUBLE-KICK","MASTERFULLY POWER-THROW","DEVASTATINGLY SNAP-KICK"};
+String[] whipMessages   ={"lash","lightly lash","lightly flog","slightly slash","flog","slice","sharply slice","lightly flick","flick","whip","wantonly whip","welt","lightly blister","blister","badly flog","slightly gash","savagely cut","sharply cut","thrash","cruelly thrash","slightly slit","strap","lather","SADISTICALLY SLASH","MADLY THRASH","WILDLY WHIP"};
+String[] biteMessages	={"sample","morsel","nibble","taste","bite","nip","really taste","snap","munch","chomp","gnaw","split","masticate","badly chomp","chew","rip","cruelly gnaw","cruelly chomp","savagely snap","brutally bite","meanly munch","really chew","horribly munch","SAVAGELY CHEW","UNCONTROLLABLY GNAW","BARBARICALLY BITE"};
+String[] clawMessages	={"lightly claw","claw","barely scrape","scrape","prick","stick","lacerate","perforate","badly perforate","wound","badly wound","savagely claw","cruelly perforate","plunge","lightly eviscerate","ram","clash","savagely strike","eviscerate","cruelly rip","nastily plunge","cruelly ram","WHACK","RELENTLESSLY RAM","CRUELLY CLAW","BARBARICALLY LACERATE"};
+String[] breathMessages	={"breath lightly","breath","snort","snort lightly","sneeze","sneeze softly","cough","gasp","gasp loudly","vomit","vomit profusely","choke","exhale","exhale quickly","blow","burp","burp loudly","hiccough","hiccough rapidly","sigh","sigh heavily","yawn","yawn widely","BREATH HARD","SNORT SAVAGELY","VICIOUSLY VOMIT"};
 
 // run() happens when you type $hits in the client. Catches the argument after the $hits
 run(){
@@ -119,12 +136,28 @@ run(){
 				reportAllHitsType("monk");
 				break;
 				
+			case "whip":
+				reportAllHitsType("whip");
+				break;
+				
+			case "bite":
+				reportAllHitsType("bite");
+				break;
+				
+			case "claw":
+				reportAllHitsType("claw");
+				break;
+				
+			case "breath":
+				reportAllHitsType("breath");
+				break;
+				
 			case "debug":
 				toggleDebug();
 				break;
 				
 			default:
-				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits monk\n$hits tiger\n$hits (r)eset\n$hits (s)tore\n$hits (c)ompare\n");
+				clientGUI.printText("general","Usable options:\n$hits\n$hits slash\n$hits pierce\n$hits bash\n$hits shield\n$hits unarmed\n$hits monk\n$hits tiger\n$hits whip\n$hits bite\n$hits claw\n$hits breath\n$hits (r)eset\n$hits (s)tore\n$hits (c)ompare\n");
 		}
 	}else{
 		reportHits();
@@ -209,6 +242,43 @@ void reportAllHitsType(String type){
 		if(countHits(monkMa)>0){
 			for(int i=0;i<monkMa.length;i++){
 				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],20)+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+(int)Math.round((float)monkMa[i]*100/countHits(monkMa))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+		
+	}else if(type.equals("whip")){
+		if(countHits(whips)>0){
+			for(int i=0;i<whips.length;i++){
+				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(whipMessages[i],20)+" "+whips[i]+spaceCounter(whips[i],3)+"("+(int)Math.round((float)whips[i]*100/countHits(whips))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("bite")){
+		if(countHits(bites)>0){
+			for(int i=0;i<bites.length;i++){
+				clientGUI.printText("general",""+biteMessages[i]+spaceCounterString(biteMessages[i],20)+" "+bites[i]+spaceCounter(bites[i],3)+"("+(int)Math.round((float)bites[i]*100/countHits(bites))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("claw")){
+		if(countHits(claws)>0){
+			for(int i=0;i<claws.length;i++){
+				clientGUI.printText("general",""+clawMessages[i]+spaceCounterString(clawMessages[i],20)+" "+claws[i]+spaceCounter(claws[i],3)+"("+(int)Math.round((float)claws[i]*100/countHits(claws))+"%)\n");
+			}
+		}
+		else{
+			clientGUI.printText("general","No registered hits yet\n");
+		}
+	}else if(type.equals("breath")){
+		if(countHits(breaths)>0){
+			for(int i=0;i<breaths.length;i++){
+				clientGUI.printText("general",""+breathMessages[i]+spaceCounterString(breathMessages[i],20)+" "+breaths[i]+spaceCounter(breaths[i],3)+"("+(int)Math.round((float)breaths[i]*100/countHits(breaths))+"%)\n");
 			}
 		}
 		else{
@@ -318,6 +388,62 @@ void reportHits(){
 					hitPercentage=(int)Math.round((float)monkMa[i]*100/countAllHits());
 				}
 				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestMessage())+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	if(countHits(whips)>0){
+		clientGUI.printText("general","\nWhip attacks:"+spaceCounterString("Whip attacks:",longestMessage())+"("+countHits(whips)+" total)\n");
+		for(int i=0;i<whips.length;i++){
+			if(whips[i]>0){
+				int hitPercentage=0;
+				if(whips[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)whips[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(whipMessages[i],longestMessage())+" "+whips[i]+spaceCounter(whips[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	if(countHits(bites)>0){
+		clientGUI.printText("general","\nBite attacks:"+spaceCounterString("Bite attacks:",longestMessage())+"("+countHits(bites)+" total)\n");
+		for(int i=0;i<bites.length;i++){
+			if(bites[i]>0){
+				int hitPercentage=0;
+				if(bites[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)bites[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+biteMessages[i]+spaceCounterString(biteMessages[i],longestMessage())+" "+bites[i]+spaceCounter(bites[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	if(countHits(claws)>0){
+		clientGUI.printText("general","\nClaw attacks:"+spaceCounterString("Claw attacks:",longestMessage())+"("+countHits(claws)+" total)\n");
+		for(int i=0;i<claws.length;i++){
+			if(claws[i]>0){
+				int hitPercentage=0;
+				if(claws[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)claws[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+clawMessages[i]+spaceCounterString(clawMessages[i],longestMessage())+" "+claws[i]+spaceCounter(claws[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
+			}
+		}
+	}else{}
+	if(countHits(breaths)>0){
+		clientGUI.printText("general","\nBreath attacks:"+spaceCounterString("Breath attacks:",longestMessage())+"("+countHits(breaths)+" total)\n");
+		for(int i=0;i<breaths.length;i++){
+			if(breaths[i]>0){
+				int hitPercentage=0;
+				if(breaths[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)breaths[i]*100/countAllHits());
+				}
+				clientGUI.printText("general",""+breathMessages[i]+spaceCounterString(breathMessages[i],longestMessage())+" "+breaths[i]+spaceCounter(breaths[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+"\n");
 			}
 		}
 	}else{}
@@ -498,7 +624,90 @@ void reportCompare(){
 			}
 		}
 	}else{}
-	
+	if(countHits(whipsCompare)>0||countHits(whips)>0){
+	clientGUI.printText("general","\nWhip attacks:"+spaceCounterString("Whip attacks:",longestMessage())+"("+countHits(whipsCompare)+" total)"+spaceCounter(countHits(whipsCompare),8)+"("+countHits(whips)+" total)\n");
+		for(int i=0;i<whipsCompare.length;i++){
+			if(whipsCompare[i]>0||whips[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(whips[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)whips[i]*100/countAllHits());
+				}
+				
+				if(whipsCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)whipsCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(whipMessages[i],longestCompareMessage())+" "+whipsCompare[i]+spaceCounter(whipsCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+whips[i]+spaceCounter(whips[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}
+	if(countHits(bitesCompare)>0||countHits(bites)>0){
+	clientGUI.printText("general","\nBite attacks:"+spaceCounterString("Bite attacks:",longestMessage())+"("+countHits(bitesCompare)+" total)"+spaceCounter(countHits(bitesCompare),8)+"("+countHits(bites)+" total)\n");
+		for(int i=0;i<bitesCompare.length;i++){
+			if(bitesCompare[i]>0||bites[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(bites[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)bites[i]*100/countAllHits());
+				}
+				
+				if(bitesCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)bitesCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+biteMessages[i]+spaceCounterString(biteMessages[i],longestCompareMessage())+" "+bitesCompare[i]+spaceCounter(bitesCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+bites[i]+spaceCounter(bites[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}
+	if(countHits(clawsCompare)>0||countHits(claws)>0){
+	clientGUI.printText("general","\nClaw attacks:"+spaceCounterString("Claw attacks:",longestMessage())+"("+countHits(clawsCompare)+" total)"+spaceCounter(countHits(clawsCompare),8)+"("+countHits(claws)+" total)\n");
+		for(int i=0;i<clawsCompare.length;i++){
+			if(clawsCompare[i]>0||claws[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(claws[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)claws[i]*100/countAllHits());
+				}
+				
+				if(clawsCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)clawsCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+clawMessages[i]+spaceCounterString(clawMessages[i],longestCompareMessage())+" "+clawsCompare[i]+spaceCounter(clawsCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+claws[i]+spaceCounter(claws[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}	
+	if(countHits(breathsCompare)>0||countHits(breaths)>0){
+	clientGUI.printText("general","\nBreath attacks:"+spaceCounterString("Breath attacks:",longestMessage())+"("+countHits(breathsCompare)+" total)"+spaceCounter(countHits(breathsCompare),8)+"("+countHits(breaths)+" total)\n");
+		for(int i=0;i<breathsCompare.length;i++){
+			if(breathsCompare[i]>0||breaths[i]>0){
+				int hitPercentage=0;
+				int comparePercentage=0;
+				if(breaths[i]==0){
+					hitPercentage=0;
+				}else{
+					hitPercentage=(int)Math.round((float)breaths[i]*100/countAllHits());
+				}
+				
+				if(breathsCompare[i]==0){
+					comparePercentage=0;
+				}else{
+					comparePercentage=(int)Math.round((float)breathsCompare[i]*100/countAllCompareHits());
+				}
+				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(breathsMessages[i],longestCompareMessage())+" "+breathsCompare[i]+spaceCounter(breathsCompare[i],3)+"("+comparePercentage+"%)"+spaceCounter(comparePercentage,3)+" --->  "+breaths[i]+spaceCounter(breaths[i],3)+"("+hitPercentage+"%)"+spaceCounter(hitPercentage,3)+""+checkPositive(hitPercentage-comparePercentage)+(hitPercentage-comparePercentage)+"%\n");
+			}
+		}
+	}else{}
 	if((dodgedCompare+parriedCompare+missedCompare)>0||(dodged+parried+missed)>0){
 		clientGUI.printText("general","\nMissed attacks:"+spaceCounterString("Missed attacks:",longestMessage())+"("+(missedCompare+dodgedCompare+parriedCompare)+" total)"+spaceCounter((missedCompare+dodgedCompare+parriedCompare),8)+"("+(missed+dodged+parried)+" total)\n");
 		if(missedCompare>0||missed>0){
@@ -612,6 +821,26 @@ int longestMessage(){
 			longestLength=monkMessages[i].length();
 		}
 	}
+		for(int i=0;i<whips.length;i++){
+		if(whips[i]>0&&whipMessages[i].length()>longestLength){
+			longestLength=whipMessages[i].length();
+		}
+	}
+		for(int i=0;i<bites.length;i++){
+		if(bites[i]>0&&biteMessages[i].length()>longestLength){
+			longestLength=biteMessages[i].length();
+		}
+	}
+		for(int i=0;i<claws.length;i++){
+		if(claws[i]>0&&clawMessages[i].length()>longestLength){
+			longestLength=clawMessages[i].length();
+		}
+	}
+		for(int i=0;i<breaths.length;i++){
+		if(breaths[i]>0&&breathMessages[i].length()>longestLength){
+			longestLength=breathMessages[i].length();
+		}
+	}
 	return longestLength;
 }
 
@@ -658,6 +887,26 @@ int longestCompareMessage(){
 			longestLength=monkMessages[i].length();
 		}
 	}
+	for(int i=0;i<whips.length;i++){
+		if((whips[i]>0||whipsCompare[i]>0)&&whipMessages[i].length()>longestLength){
+			longestLength=whipMessages[i].length();
+		}
+	}
+	for(int i=0;i<bites.length;i++){
+		if((bites[i]>0||bitesCompare[i]>0)&&biteMessages[i].length()>longestLength){
+			longestLength=biteMessages[i].length();
+		}
+	}
+	for(int i=0;i<claws.length;i++){
+		if((claws[i]>0||clawsCompare[i]>0)&&clawMessages[i].length()>longestLength){
+			longestLength=clawMessages[i].length();
+		}
+	}
+	for(int i=0;i<breaths.length;i++){
+		if((breaths[i]>0||breathsCompare[i]>0)&&breathMessages[i].length()>longestLength){
+			longestLength=breathMessages[i].length();
+		}
+	}
 	return longestLength;
 }
 
@@ -672,6 +921,10 @@ void resetHits(){
 		shields[i]=0;
 		tigerMa[i]=0;
 		monkMa[i]=0;
+		whips[i]=0;
+		bites[i]=0;
+		claws[i]=0;
+		breaths[i]=0;
 	}
 	missed=0;
 	dodged=0;
@@ -689,12 +942,12 @@ int countHits(int[] hitit){
 
 //counts the hits in variables and returns the sum
 int countAllHits(){
-	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+countHits(tigerMa)+countHits(monkMa)+dodged+missed+parried);
+	return (countHits(slashes)+countHits(unarmeds)+countHits(bashes)+countHits(pierces)+countHits(shields)+countHits(tigerMa)+countHits(monkMa)+countHits(whips)+countHits(bites)+countHits(claws)+countHits(breaths)+dodged+missed+parried);
 } 
 
 // Counts the hits in compare variables and returns the sum
 int countAllCompareHits(){
-	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+countHits(tigerMaCompare)+countHits(monkMaCompare)+dodgedCompare+missedCompare+parriedCompare);
+	return (countHits(slashesCompare)+countHits(unarmedsCompare)+countHits(bashesCompare)+countHits(piercesCompare)+countHits(shieldsCompare)+countHits(tigerMaCompare)+countHits(monkMaCompare)+countHits(whipsCompare)+countHits(bitesCompare)+countHits(clawsCompare)+countHits(breathsCompare)+dodgedCompare+missedCompare+parriedCompare);
 } 
 
 
@@ -707,6 +960,10 @@ void copyCompare(){
 	shieldsCompare=Arrays.copyOf(shields, shields.length);
 	monkMaCompare=Arrays.copyOf(monkMa, monkMa.length);
 	tigerMaCompare=Arrays.copyOf(tigerMa, tigerMa.length);
+	whipsCompare=Arrays.copyOf(whips, whips.length);
+	bitesCompare=Arrays.copyOf(bites, bites.length);
+	clawsCompare=Arrays.copyOf(claws, claws.length);
+	breathsCompare=Arrays.copyOf(breaths, breaths.length);
 	missedCompare=missed;
 	dodgedCompare=dodged;
 	parriedCompare=parried;
@@ -757,6 +1014,18 @@ void addHit(){
 		}
 		if(argument.equals(monkMessages[i])){
 			monkMa[i]++;
+		}
+		if(argument.equals(whipMessages[i])){
+			whips[i]++;
+		}
+		if(argument.equals(biteMessages[i])){
+			bites[i]++;
+		}
+		if(argument.equals(clawMessages[i])){
+			claws[i]++;
+		}	
+		if(argument.equals(breathMessages[i])){
+			breaths[i]++;
 		}
 	}
 }
