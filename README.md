@@ -1,10 +1,10 @@
-# batclient-hitcounter V1.1 By Jkk<br>
+# batclient-hitcounter V1.2 By Jkk<br>
 A hit message counter for batclient.<br>
 Counts and reports your attacks.<br>
-Thanks to Kohothegreat for advice with regexp<br>
+Thanks to Kohothegreat for advice with regexp, and Hair for the flavour messages.<br>
 Tell me if something bugs or it misses hits or records something that it should not<br> 
 
-New: added more hit types
+New: Fixed monk message detection.
 
 <b>Instructions</b><br>
 Click the 'Clone or download' -button in github page, or click the hitcounter.bcs, select Raw, and THEN save as...<br>
