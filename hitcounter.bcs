@@ -27,9 +27,6 @@ bites	 = new int [26];
 claws	 = new int [26];
 breaths  = new int [26];
 
-
-
-
 int missed=0;
 int dodged=0;
 int parried=0;
