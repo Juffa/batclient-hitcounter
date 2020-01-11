@@ -187,7 +187,7 @@ void reportAllHitsType(String type){
 	if(type.equals("slash")){
 		if(countHits(slashes)>0){
 			for(int i=0;i<slashes.length;i++){
-				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],20)+" "+slashes[i]+spaceCounter(slashes[i],3)+"("+(int)Math.round((float)slashes[i]*100/countHits(slashes))+"%)\n");
+				clientGUI.printText("general",""+slashMessages[i]+spaceCounterString(slashMessages[i],longestMessageOld(type))+" "+slashes[i]+spaceCounter(slashes[i],3)+"("+(int)Math.round((float)slashes[i]*100/countHits(slashes))+"%)\n");
 			}
 		}
 		else{
@@ -196,7 +196,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("bash")){
 		if(countHits(bashes)>0){
 			for(int i=0;i<bashes.length;i++){
-				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],20)+" "+bashes[i]+spaceCounter(bashes[i],3)+"("+(int)Math.round((float)bashes[i]*100/countHits(bashes))+"%)\n");
+				clientGUI.printText("general",""+bashMessages[i]+spaceCounterString(bashMessages[i],longestMessageOld(type))+" "+bashes[i]+spaceCounter(bashes[i],3)+"("+(int)Math.round((float)bashes[i]*100/countHits(bashes))+"%)\n");
 			}
 		}
 		else{
@@ -205,7 +205,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("unarmed")){
 		if(countHits(unarmeds)>0){
 			for(int i=0;i<unarmeds.length;i++){
-				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],20)+" "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+(int)Math.round((float)unarmeds[i]*100/countHits(unarmeds))+"%)\n");
+				clientGUI.printText("general",""+unarmedMessages[i]+spaceCounterString(unarmedMessages[i],longestMessageOld(type))+" "+unarmeds[i]+spaceCounter(unarmeds[i],3)+"("+(int)Math.round((float)unarmeds[i]*100/countHits(unarmeds))+"%)\n");
 			}
 		}
 		else{
@@ -214,7 +214,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("shield")){
 		if(countHits(shields)>0){
 			for(int i=0;i<shields.length;i++){
-				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],20)+" "+shields[i]+spaceCounter(shields[i],3)+"("+(int)Math.round((float)shields[i]*100/countHits(shields))+"%)\n");
+				clientGUI.printText("general",""+shieldMessages[i]+spaceCounterString(shieldMessages[i],longestMessageOld(type))+" "+shields[i]+spaceCounter(shields[i],3)+"("+(int)Math.round((float)shields[i]*100/countHits(shields))+"%)\n");
 			}
 		}
 		else{
@@ -223,7 +223,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("pierce")){
 		if(countHits(pierces)>0){
 			for(int i=0;i<pierces.length;i++){
-				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],20)+" "+pierces[i]+spaceCounter(pierces[i],3)+"("+(int)Math.round((float)pierces[i]*100/countHits(pierces))+"%)\n");
+				clientGUI.printText("general",""+pierceMessages[i]+spaceCounterString(pierceMessages[i],longestMessageOld(type))+" "+pierces[i]+spaceCounter(pierces[i],3)+"("+(int)Math.round((float)pierces[i]*100/countHits(pierces))+"%)\n");
 			}
 		}
 		else{
@@ -232,7 +232,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("tiger")){
 		if(countHits(tigerMa)>0){
 			for(int i=0;i<tigerMa.length;i++){
-				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],20)+" "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+(int)Math.round((float)tigerMa[i]*100/countHits(tigerMa))+"%)\n");
+				clientGUI.printText("general",""+tigerMessages[i]+spaceCounterString(tigerMessages[i],longestMessageOld(type))+" "+tigerMa[i]+spaceCounter(tigerMa[i],3)+"("+(int)Math.round((float)tigerMa[i]*100/countHits(tigerMa))+"%)\n");
 			}
 		}
 		else{
@@ -241,7 +241,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("monk")){
 		if(countHits(monkMa)>0){
 			for(int i=0;i<monkMa.length;i++){
-				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],20)+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+(int)Math.round((float)monkMa[i]*100/countHits(monkMa))+"%)\n");
+				clientGUI.printText("general",""+monkMessages[i]+spaceCounterString(monkMessages[i],longestMessageOld(type))+" "+monkMa[i]+spaceCounter(monkMa[i],3)+"("+(int)Math.round((float)monkMa[i]*100/countHits(monkMa))+"%)\n");
 			}
 		}
 		else{
@@ -251,7 +251,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("whip")){
 		if(countHits(whips)>0){
 			for(int i=0;i<whips.length;i++){
-				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(whipMessages[i],20)+" "+whips[i]+spaceCounter(whips[i],3)+"("+(int)Math.round((float)whips[i]*100/countHits(whips))+"%)\n");
+				clientGUI.printText("general",""+whipMessages[i]+spaceCounterString(whipMessages[i],longestMessageOld(type))+" "+whips[i]+spaceCounter(whips[i],3)+"("+(int)Math.round((float)whips[i]*100/countHits(whips))+"%)\n");
 			}
 		}
 		else{
@@ -260,7 +260,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("bite")){
 		if(countHits(bites)>0){
 			for(int i=0;i<bites.length;i++){
-				clientGUI.printText("general",""+biteMessages[i]+spaceCounterString(biteMessages[i],20)+" "+bites[i]+spaceCounter(bites[i],3)+"("+(int)Math.round((float)bites[i]*100/countHits(bites))+"%)\n");
+				clientGUI.printText("general",""+biteMessages[i]+spaceCounterString(biteMessages[i],longestMessageOld(type))+" "+bites[i]+spaceCounter(bites[i],3)+"("+(int)Math.round((float)bites[i]*100/countHits(bites))+"%)\n");
 			}
 		}
 		else{
@@ -269,7 +269,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("claw")){
 		if(countHits(claws)>0){
 			for(int i=0;i<claws.length;i++){
-				clientGUI.printText("general",""+clawMessages[i]+spaceCounterString(clawMessages[i],20)+" "+claws[i]+spaceCounter(claws[i],3)+"("+(int)Math.round((float)claws[i]*100/countHits(claws))+"%)\n");
+				clientGUI.printText("general",""+clawMessages[i]+spaceCounterString(clawMessages[i],longestMessageOld(type))+" "+claws[i]+spaceCounter(claws[i],3)+"("+(int)Math.round((float)claws[i]*100/countHits(claws))+"%)\n");
 			}
 		}
 		else{
@@ -278,7 +278,7 @@ void reportAllHitsType(String type){
 	}else if(type.equals("breath")){
 		if(countHits(breaths)>0){
 			for(int i=0;i<breaths.length;i++){
-				clientGUI.printText("general",""+breathMessages[i]+spaceCounterString(breathMessages[i],20)+" "+breaths[i]+spaceCounter(breaths[i],3)+"("+(int)Math.round((float)breaths[i]*100/countHits(breaths))+"%)\n");
+				clientGUI.printText("general",""+breathMessages[i]+spaceCounterString(breathMessages[i],longestMessageOld(type))+" "+breaths[i]+spaceCounter(breaths[i],3)+"("+(int)Math.round((float)breaths[i]*100/countHits(breaths))+"%)\n");
 			}
 		}
 		else{
@@ -841,8 +841,100 @@ int longestMessage(){
 			longestLength=breathMessages[i].length();
 		}
 	}
+	if(debug){
+	clientGUI.printText("general","longest message length: "+longestLength+"\n","FFFFFF");
+	}
 	return longestLength;
 }
+
+int longestMessageOld(String type){
+	int longestLength=17;
+	
+	if(type.equals("slash")){
+	
+		for(int i=0;i<slashes.length;i++){
+			if(slashMessages[i].length()>longestLength){
+				longestLength=slashMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("unarmed")){
+		for(int i=0;i<unarmeds.length;i++){
+			if(unarmedMessages[i].length()>longestLength){
+			longestLength=unarmedMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("bash")){
+		for(int i=0;i<bashes.length;i++){
+			if(bashMessages[i].length()>longestLength){
+			longestLength=bashMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("pierce")){
+		for(int i=0;i<pierces.length;i++){
+			if(pierceMessages[i].length()>longestLength){
+			longestLength=pierceMessages[i].length();
+			}	
+		}
+	}
+	if(type.equals("shield")){
+		for(int i=0;i<shields.length;i++){
+			if(shieldMessages[i].length()>longestLength){
+			longestLength=shieldMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("tiger")){
+		for(int i=0;i<tigerMa.length;i++){
+			if(tigerMessages[i].length()>longestLength){
+			longestLength=tigerMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("monk")){
+		for(int i=0;i<monkMa.length;i++){
+			if(monkMessages[i].length()>longestLength){
+			longestLength=monkMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("whip")){
+		for(int i=0;i<whips.length;i++){
+			if(whipMessages[i].length()>longestLength){
+			longestLength=whipMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("bite")){
+		for(int i=0;i<bites.length;i++){
+			if(biteMessages[i].length()>longestLength){
+			longestLength=biteMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("claw")){
+		for(int i=0;i<claws.length;i++){
+			if(clawMessages[i].length()>longestLength){
+			longestLength=clawMessages[i].length();
+			}
+		}
+	}
+	if(type.equals("breath")){
+		for(int i=0;i<breaths.length;i++){
+			if(breathMessages[i].length()>longestLength){
+			longestLength=breathMessages[i].length();
+			}
+		}
+	}
+	if(debug){
+	clientGUI.printText("general","longest message length: "+longestLength+"\n","FFFFFF");
+	}
+	return longestLength;
+}
+
+
 
 //Measures the longest hit message that actually have hits in the compare variables
 int longestCompareMessage(){
@@ -907,6 +999,9 @@ int longestCompareMessage(){
 			longestLength=breathMessages[i].length();
 		}
 	}
+	if(debug){
+		clientGUI.printText("general","longest message length: "+longestLength+"\n","FFFFFF");
+		}
 	return longestLength;
 }
 
@@ -1055,7 +1150,7 @@ void addParriesMyHit(){
 void triggers(){
 //regexp explained: match these two words that may or may not be here. Match You and you. Ignore any lines that have any of these after You or you. Match hit message that is any combination of lowercase or CAPS words. Dont match delim, match a word that starts with Caps and any other word after it until match to any of these (frazzling ripping smashing etc). Dont match him|her|it cry out in pain! after it	
 	triggerManager.newTrigger("addHit",
-	"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put|wear|remove|start|are|manage to|try to|feel|perform) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) ([[^;][A-Z][a-z- ]+ -,]+) (adding in|aiming|backwards,|breaking|by following|by harnessing|causing|caving|completely crushing|creating|crushing|destroying|dislocating|doing terrible|forcing|frazzling|hitting only|in the arm,|in the chest,|in the groin,|in the solar plexus|inducing|into the ribs from|like if hitting|making|mutilating|one more time|performing|producing|puncturing|resulting|ripping|slapping|slicing|smashing|snapping|sparking|splattering|spraying|surprisingly|tearing|timing|to the|touching barely|trying|using correctly|with a cunning|with masterful precision and coordination) (?!him|her|it|his|its (cry out in pain!)|(shoulder!)|(serious pain!)|an uppercut|yourself|fundamental truths)",
+	"^(Grinning|Smiling|Cackling)? ?(diabolically|devilishly|demonically)? ?[Yy]{1}ou (?!sold|open|close|take|drop|look|give|put|wear|remove|start|are|manage to|try to|feel|perform) ?([a-z- ,]+ [A-Z- ,]+|[A-Z- ,]+ [a-z- ,]+|[a-z- ,]+|[A-Z- ,]+) ([[^;]([A-Z][a-z- ]|[A-Z])+ -,]+) (adding in|aiming|backwards,|breaking|by following|by harnessing|causing|caving|completely crushing|creating|crushing|destroying|dislocating|doing terrible|forcing|frazzling|hitting only|in the arm,|in the chest,|in the groin,|in the solar plexus|inducing|into the ribs from|like if hitting|making|mutilating|one more time|performing|producing|puncturing|resulting|ripping|slapping|slicing|smashing|snapping|sparking|splattering|spraying|surprisingly|tearing|timing|to the|touching barely|trying|using correctly|with a cunning|with masterful precision and coordination.) (?!him|her|it|his|its (cry out in pain!)|(shoulder!)|(serious pain!)|an uppercut|yourself|fundamental truths)",
 	"$"+SCRIPT_NAME+".addHit %3");
 	
 	triggerManager.newTrigger("addMiss",
